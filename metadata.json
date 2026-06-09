@@ -1,0 +1,6 @@
+{
+  "name": "رسمتك",
+  "description": "تطبيق رسم متكامل يحتوي على لوحة رسم متطورة مع فرش وأقلام وأشكال، ومعرض صور عام وخاص ومجتمع لمشاركة الرسومات والتعليقات.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
