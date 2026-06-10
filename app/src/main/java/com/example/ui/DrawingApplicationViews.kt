@@ -63,6 +63,151 @@ import com.example.data.CommentEntity
 import com.example.data.DrawingEntity
 import java.io.File
 
+fun getTxt(key: String, lang: String): String {
+    return when (lang) {
+        "en" -> when (key) {
+            "app_name" -> "Rasmatak"
+            "welcome" -> "Welcome"
+            "search_hint" -> "Search in my drawings..."
+            "personal_projects" -> "My Personal Projects"
+            "no_projects" -> "No drawings match your search!"
+            "no_projects_sub" -> "Click + to create your first drawing and start sketching."
+            "drawings_count" -> "drawings"
+            "create_new" -> "Create New Drawing"
+            "drawing_name" -> "Drawing Name"
+            "width_px" -> "Width (pixels)"
+            "height_px" -> "Height (pixels)"
+            "create" -> "Create"
+            "cancel" -> "Cancel"
+            "settings" -> "Settings"
+            "change_lang" -> "App Language"
+            "edit_username" -> "Edit Painter Name"
+            "save_username" -> "Save Settings"
+            "close" -> "Close"
+            "canvas_title" -> "Art Studio"
+            "brush_tab" -> "Brush & Style"
+            "layers_tab" -> "Layers & Move"
+            "mixer_tab" -> "Color Mixer"
+            "brush_size" -> "Brush Size"
+            "eraser_size" -> "Eraser Size"
+            "pencil" -> "Pencil"
+            "paintbrush" -> "Paintbrush"
+            "eraser" -> "Eraser"
+            "rectangle" -> "Rectangle"
+            "circle" -> "Circle"
+            "symmetry" -> "Symmetry"
+            "no_symmetry" -> "No Symmetry"
+            "vert_symmetry" -> "Vertical Symmetry"
+            "horiz_symmetry" -> "Horizontal Symmetry"
+            "radial_symmetry" -> "Radial Symmetry"
+            "grid" -> "Grid"
+            "grid_blank" -> "Blank Canvas"
+            "grid_squares" -> "Square Grid"
+            "grid_dots" -> "Dots Grid"
+            "grid_isometric" -> "Isometric Grid"
+            "undo" -> "Undo"
+            "redo" -> "Redo"
+            "clear" -> "Clear"
+            "save" -> "Save"
+            "zoom_in" -> "Zoom In"
+            "zoom_out" -> "Zoom Out"
+            "pan_canvas" -> "Pan Canvas"
+            "reset_view" -> "Reset View"
+            "active_tool" -> "Active Tool"
+            "panning_mode" -> "Panning Mode Active"
+            "save_drawing_title" -> "Save Drawing"
+            "save_drawing_desc" -> "Enter your drawing details below"
+            "drawing_title_label" -> "Drawing Title *"
+            "drawing_desc_label" -> "Drawing Description"
+            "title_placeholder" -> "e.g. Sunset view"
+            "desc_placeholder" -> "Write your feelings..."
+            "privacy_label" -> "Drawing settings"
+            "privacy_private" -> "Local Save"
+            "privacy_private_sub" -> "Saved in your personal portfolio"
+            "save_confirm" -> "Save"
+            "back" -> "Back"
+            "detail_title" -> "Drawing Details"
+            "drawing_id" -> "Drawing ID"
+            "by_author" -> "By Painter"
+            "profanity_title" -> "Inappropriate word!"
+            "profanity_text" -> "This word contains profanity and is blocked."
+            "ok" -> "OK"
+            "zoom_pan_controls" -> "Zoom & Pan controls"
+            else -> key
+        }
+        else -> when (key) { // "ar"
+            "app_name" -> "رسمتك"
+            "welcome" -> "أهلاً بك"
+            "search_hint" -> "البحث في مشاريعي الخاصة..."
+            "personal_projects" -> "مشاريعي الشخصية"
+            "no_projects" -> "لا توجد لوحات فنية تطابق البحث!"
+            "no_projects_sub" -> "اضغط على زر + لبدء لوحتك الأولى!"
+            "drawings_count" -> "لوحات"
+            "create_new" -> "إضافة رسمة جديدة"
+            "drawing_name" -> "اسم الرسمة"
+            "width_px" -> "العرض بالبكسل"
+            "height_px" -> "الارتفاع بالبكسل"
+            "create" -> "إنشاء"
+            "cancel" -> "إلغاء"
+            "settings" -> "الإعدادات"
+            "change_lang" -> "لغة التطبيق"
+            "edit_username" -> "تعديل اسم الرسام"
+            "save_username" -> "حفظ الاسم"
+            "close" -> "إغلاق"
+            "canvas_title" -> "مرسم الرسم الفني"
+            "brush_tab" -> "الفرشاة والمظهر"
+            "layers_tab" -> "الطبقات والتحريك"
+            "mixer_tab" -> "دمج ومزج الألوان"
+            "brush_size" -> "حجم الخط"
+            "eraser_size" -> "حجم الممحاة"
+            "pencil" -> "قلم رصاص"
+            "paintbrush" -> "فرشاة رسم"
+            "eraser" -> "ممحاة"
+            "rectangle" -> "مستطيل"
+            "circle" -> "دائرة"
+            "symmetry" -> "تماثل"
+            "no_symmetry" -> "بدون تماثل"
+            "vert_symmetry" -> "تماثل عمودي"
+            "horiz_symmetry" -> "تماثل أفقي"
+            "radial_symmetry" -> "تماثل شعاعي"
+            "grid" -> "الشبكة"
+            "grid_blank" -> "لوحة فارغة"
+            "grid_squares" -> "شبكة مربعات"
+            "grid_dots" -> "تنقيط هندسي"
+            "grid_isometric" -> "أيزوميتريك"
+            "undo" -> "تراجع"
+            "redo" -> "إعادة"
+            "clear" -> "مسح"
+            "save" -> "حفظ"
+            "zoom_in" -> "تقريب"
+            "zoom_out" -> "تبعيد"
+            "pan_canvas" -> "تحريك اللوحة"
+            "reset_view" -> "إعادة الضبط"
+            "active_tool" -> "الأداة النشطة"
+            "panning_mode" -> "وضع تحريك اللوحة نشط"
+            "save_drawing_title" -> "حفظ الرسمة"
+            "save_drawing_desc" -> "أدخل معلومات لوحتك لحفظها"
+            "drawing_title_label" -> "عنوان الرسمة *"
+            "drawing_desc_label" -> "وصف الرسمة"
+            "title_placeholder" -> "مثال: مظهر الغروب الهادئ"
+            "desc_placeholder" -> "اكتب مشاعرك وما تجسده هذه اللوحة..."
+            "privacy_label" -> "إعدادات خصوصية اللوحة"
+            "privacy_private" -> "حفظ محلي"
+            "privacy_private_sub" -> "تظهر لك في مشاريعك الخاصة"
+            "save_confirm" -> "تم، حفظ"
+            "back" -> "رجوع"
+            "detail_title" -> "تفاصيل اللوحة"
+            "drawing_id" -> "رقم اللوحة"
+            "by_author" -> "بواسطة الرسام"
+            "profanity_title" -> "محتوى غير لائق!"
+            "profanity_text" -> "هذه الكلمة محظورة. يرجى استخدام كلمات لائقة لتسمية لوحتك."
+            "ok" -> "موافق"
+            "zoom_pan_controls" -> "تحكم التقريب والتحريك"
+            else -> key
+        }
+    }
+}
+
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun MainViewsContainer(viewModel: DrawingViewModel) {
@@ -70,9 +215,11 @@ fun MainViewsContainer(viewModel: DrawingViewModel) {
     val currentScreen by viewModel.screenState.collectAsStateWithLifecycle()
     val username by viewModel.username.collectAsStateWithLifecycle()
     val showProfanityDialog by viewModel.showProfanityErrorDialog.collectAsStateWithLifecycle()
+    val currentLang by viewModel.appLanguage.collectAsStateWithLifecycle()
 
-    // Force RTL local layout direction for Arabic visual flow
-    CompositionLocalProvider(LocalLayoutDirection provides LayoutDirection.Rtl) {
+    val layoutDirection = if (currentLang == "ar") LayoutDirection.Rtl else LayoutDirection.Ltr
+
+    CompositionLocalProvider(LocalLayoutDirection provides layoutDirection) {
         Surface(
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
@@ -159,25 +306,49 @@ fun MainViewsContainer(viewModel: DrawingViewModel) {
 @Composable
 fun HomeScreen(viewModel: DrawingViewModel, currentUsername: String) {
     val drawingsList by viewModel.filteredDrawings.collectAsStateWithLifecycle()
-    val isPublicTab by viewModel.isShowingPublicTabInGallery.collectAsStateWithLifecycle()
     val searchQuery by viewModel.searchQuery.collectAsStateWithLifecycle()
-    val followedArtists by viewModel.followedArtists.collectAsStateWithLifecycle()
+    val currentLang by viewModel.appLanguage.collectAsStateWithLifecycle()
 
-    var editingUsernameState by remember(currentUsername) { mutableStateOf(currentUsername) }
-    var isEditingNameActive by remember { mutableStateOf(false) }
+    var showCreateDialog by remember { mutableStateOf(false) }
+    var showSettingsDialog by remember { mutableStateOf(false) }
+
+    // Firebase authentication & Shared Sync variables
+    var showAuthDialog by remember { mutableStateOf(false) }
+    var showPrivateCloudGallerySheet by remember { mutableStateOf(false) }
+    var importCodeState by remember { mutableStateOf("") }
+    var importErrorMessage by remember { mutableStateOf<String?>(null) }
+    var importSuccessMessage by remember { mutableStateOf<String?>(null) }
+    var importLoading by remember { mutableStateOf(false) }
+
+    val isFirebaseLoggedIn by viewModel.isFirebaseLoggedIn.collectAsStateWithLifecycle()
+    val firebaseEmail by viewModel.firebaseEmail.collectAsStateWithLifecycle()
+    val privateCloudDrawings by viewModel.firebasePrivateDrawings.collectAsStateWithLifecycle()
 
     val focusManager = LocalFocusManager.current
     val context = LocalContext.current
 
     Scaffold(
         containerColor = Color(0xFF0F0F0F),
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = { showCreateDialog = true },
+                containerColor = Color(0xFF6366F1),
+                contentColor = Color.White,
+                modifier = Modifier.testTag("add_drawing_fab")
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Add,
+                    contentDescription = getTxt("create_new", currentLang)
+                )
+            }
+        },
         topBar = {
             Column(
                 modifier = Modifier
                     .background(Color(0xFF0F0F0F))
-                    .padding(horizontal = 16.dp, vertical = 12.dp)
+                    .padding(horizontal = 16.dp, vertical = 10.dp)
+                    .statusBarsPadding()
             ) {
-                // Top header
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
@@ -187,7 +358,6 @@ fun HomeScreen(viewModel: DrawingViewModel, currentUsername: String) {
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.weight(1f)
                     ) {
-                        // Avatar circle
                         val firstLetter = if (currentUsername.isNotEmpty()) currentUsername.take(1).uppercase() else "A"
                         Box(
                             modifier = Modifier
@@ -207,97 +377,94 @@ fun HomeScreen(viewModel: DrawingViewModel, currentUsername: String) {
                                 fontSize = 16.sp
                             )
                         }
-                        
+
                         Spacer(modifier = Modifier.width(10.dp))
-                        
-                        Column(modifier = Modifier.weight(1f)) {
+
+                        Column {
                             Text(
-                                text = "أهلاً بك",
+                                text = getTxt("welcome", currentLang),
                                 fontSize = 10.sp,
                                 color = Color(0xFF94A3B8),
                                 fontWeight = FontWeight.Medium
                             )
-                            
-                            if (isEditingNameActive) {
-                                OutlinedTextField(
-                                    value = editingUsernameState,
-                                    onValueChange = { editingUsernameState = it },
-                                    singleLine = true,
-                                    colors = OutlinedTextFieldDefaults.colors(
-                                        focusedBorderColor = Color(0xFF6366F1),
-                                        unfocusedBorderColor = Color(0xFF2A2A2A),
-                                        focusedContainerColor = Color(0xFF1A1A1A),
-                                        unfocusedContainerColor = Color(0xFF1A1A1A),
-                                        focusedTextColor = Color.White,
-                                        unfocusedTextColor = Color(0xFFE5E5E5)
-                                    ),
-                                    shape = RoundedCornerShape(8.dp),
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .height(48.dp)
-                                        .testTag("username_input"),
-                                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                                    keyboardActions = KeyboardActions(onDone = {
-                                        if (editingUsernameState.isNotBlank()) {
-                                            viewModel.setUsername(editingUsernameState)
-                                        }
-                                        isEditingNameActive = false
-                                        focusManager.clearFocus()
-                                    })
-                                )
-                            } else {
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    modifier = Modifier.clickable { isEditingNameActive = true }
-                                ) {
-                                    Text(
-                                        text = currentUsername.ifBlank { "أحمد الرسام" },
-                                        fontSize = 16.sp,
-                                        fontWeight = FontWeight.SemiBold,
-                                        color = Color.White,
-                                        maxLines = 1,
-                                        overflow = TextOverflow.Ellipsis
-                                    )
-                                    Spacer(modifier = Modifier.width(4.dp))
-                                    Icon(
-                                        imageVector = Icons.Filled.Edit,
-                                        contentDescription = "تعديل الاسم",
-                                        tint = Color(0xFF94A3B8),
-                                        modifier = Modifier.size(12.dp)
-                                    )
-                                }
-                            }
-                        }
-                    }
-                    
-                    if (isEditingNameActive) {
-                        IconButton(
-                            onClick = {
-                                if (editingUsernameState.isNotBlank()) {
-                                    viewModel.setUsername(editingUsernameState)
-                                }
-                                isEditingNameActive = false
-                                focusManager.clearFocus()
-                            }
-                        ) {
-                            Icon(
-                                imageVector = Icons.Filled.Check,
-                                contentDescription = "حفظ الاسم",
-                                tint = Color(0xFF6366F1)
+                            Text(
+                                text = currentUsername.ifBlank { "Unregistered" },
+                                fontSize = 15.sp,
+                                fontWeight = FontWeight.SemiBold,
+                                color = Color.White,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
                             )
                         }
                     }
-                    
-                    Spacer(modifier = Modifier.width(8.dp))
-                    
-                    Text(
-                        text = "رَسْمَتَك",
-                        fontWeight = FontWeight.Black,
-                        fontSize = 22.sp,
-                        fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
-                        color = Color(0xFF6366F1)
-                    )
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        IconButton(onClick = { showSettingsDialog = true }) {
+                            Icon(
+                                imageVector = Icons.Filled.Settings,
+                                contentDescription = getTxt("settings", currentLang),
+                                tint = Color.White
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.width(4.dp))
+
+                        Text(
+                            text = getTxt("app_name", currentLang),
+                            fontWeight = FontWeight.Black,
+                            fontSize = 20.sp,
+                            fontStyle = androidx.compose.ui.text.font.FontStyle.Italic,
+                            color = Color(0xFF6366F1)
+                        )
+                    }
                 }
+
+                Spacer(modifier = Modifier.height(10.dp))
+
+                // Search Bar integrated beautifully in the title bar
+                OutlinedTextField(
+                    value = searchQuery,
+                    onValueChange = { viewModel.setSearchQuery(it) },
+                    placeholder = { 
+                        Text(
+                            text = getTxt("search_hint", currentLang), 
+                            color = Color(0xFF94A3B8), 
+                            fontSize = 12.sp
+                        ) 
+                    },
+                    leadingIcon = { 
+                        Icon(
+                            imageVector = Icons.Filled.Search, 
+                            contentDescription = null, 
+                            tint = Color(0xFF94A3B8)
+                        ) 
+                    },
+                    trailingIcon = {
+                        if (searchQuery.isNotEmpty()) {
+                            IconButton(onClick = { viewModel.setSearchQuery("") }) {
+                                Icon(
+                                    imageVector = Icons.Filled.Clear, 
+                                    contentDescription = null, 
+                                    tint = Color(0xFF94A3B8)
+                                )
+                            }
+                        }
+                    },
+                    shape = RoundedCornerShape(12.dp),
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = Color(0xFF6366F1),
+                        unfocusedBorderColor = Color(0xFF2A2A2A),
+                        focusedContainerColor = Color(0xFF161616),
+                        unfocusedContainerColor = Color(0xFF161616),
+                        focusedTextColor = Color.White,
+                        unfocusedTextColor = Color(0xFFE5E5E5)
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(52.dp)
+                        .testTag("search_bar"),
+                    singleLine = true
+                )
             }
         }
     ) { innerPadding ->
@@ -307,178 +474,249 @@ fun HomeScreen(viewModel: DrawingViewModel, currentUsername: String) {
                 .padding(innerPadding)
                 .padding(horizontal = 16.dp)
         ) {
-            Spacer(modifier = Modifier.height(8.dp))
- 
-            // Search Bar Component
-            OutlinedTextField(
-                value = searchQuery,
-                onValueChange = { viewModel.setSearchQuery(it) },
-                placeholder = { Text("ابحث برقم الرسمة (ID) أو العنوان أو اسم الرسام...", color = Color(0xFF94A3B8), fontSize = 12.sp) },
-                leadingIcon = { Icon(Icons.Filled.Search, contentDescription = null, tint = Color(0xFF94A3B8)) },
-                trailingIcon = {
-                    if (searchQuery.isNotEmpty()) {
-                        IconButton(onClick = { viewModel.setSearchQuery("") }) {
-                            Icon(Icons.Filled.Clear, contentDescription = "مسح", tint = Color(0xFF94A3B8))
-                        }
-                    }
-                },
-                shape = RoundedCornerShape(16.dp),
-                colors = OutlinedTextFieldDefaults.colors(
-                    focusedBorderColor = Color(0xFF6366F1),
-                    unfocusedBorderColor = Color(0xFF2A2A2A),
-                    focusedContainerColor = Color(0xFF1A1A1A),
-                    unfocusedContainerColor = Color(0xFF1A1A1A),
-                    focusedTextColor = Color.White,
-                    unfocusedTextColor = Color(0xFFE5E5E5)
+            Spacer(modifier = Modifier.height(6.dp))
+
+            // Firebase Cloud Accounts & Sync Section
+            Card(
+                modifier = Modifier.fillMaxWidth().testTag("firebase_sync_card"),
+                colors = CardDefaults.cardColors(
+                    containerColor = Color(0xFF131313)
                 ),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .testTag("search_bar"),
-                singleLine = true
-            )
- 
-            Spacer(modifier = Modifier.height(16.dp))
- 
-            // Two Action Buttons Grid
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(12.dp)
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF252528)),
+                shape = RoundedCornerShape(12.dp)
             ) {
-                // "ابدأ الرسم" (Start Drawing) with Gradient
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(100.dp)
-                        .clip(RoundedCornerShape(24.dp))
-                        .background(
-                            androidx.compose.ui.graphics.Brush.linearGradient(
-                                colors = listOf(Color(0xFF6366F1), Color(0xFF4F46E5))
-                            )
-                        )
-                        .clickable { viewModel.navigateTo(ScreenState.Canvas) }
-                        .testTag("sketch_button"),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
+                Column(modifier = Modifier.padding(12.dp)) {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Box(
-                            modifier = Modifier
-                                .size(36.dp)
-                                .clip(CircleShape)
-                                .background(Color.White.copy(alpha = 0.2f)),
-                            contentAlignment = Alignment.Center
-                        ) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
                             Icon(
-                                imageVector = Icons.Filled.Brush,
+                                imageVector = Icons.Filled.Cloud,
                                 contentDescription = null,
-                                tint = Color.White,
+                                tint = if (isFirebaseLoggedIn) Color(0xFF4ADE80) else Color(0xFF818CF8),
                                 modifier = Modifier.size(18.dp)
                             )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = if (currentLang == "ar") "حساب ومزامنة رسمتك السحابية" else "Cloud Sync Accounts",
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 13.sp,
+                                color = Color.White
+                            )
                         }
-                        Spacer(modifier = Modifier.height(6.dp))
-                        Text(
-                            text = "ابدأ الرسم",
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 14.sp
-                        )
-                    }
-                }
 
-                // Gallery Toggler
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(100.dp)
-                        .clip(RoundedCornerShape(24.dp))
-                        .background(Color(0xFF1A1A1A))
-                        .border(1.dp, Color(0xFF2A2A2A), RoundedCornerShape(24.dp))
-                        .clickable { viewModel.setGalleryTab(!isPublicTab) },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Box(
-                            modifier = Modifier
-                                .size(36.dp)
-                                .clip(CircleShape)
-                                .background(if (!isPublicTab) Color(0xFF6366F1).copy(alpha = 0.2f) else Color(0xFF2D2D2D)),
-                            contentAlignment = Alignment.Center
+                        if (isFirebaseLoggedIn) {
+                            TextButton(onClick = { viewModel.signOut() }) {
+                                Text(
+                                    text = if (currentLang == "ar") "خروج" else "Logout",
+                                    color = Color(0xFFEF4444),
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(6.dp))
+
+                    if (!isFirebaseLoggedIn) {
+                        Text(
+                            text = if (currentLang == "ar") 
+                                "سجّل حسابك مجاناً الآن لتستمتع بحفظ لوحاتك في معرض سحابي خاص بالكامل واستردادها في أي وقت!" 
+                                else "Sign up free to auto-save and sync drawings inside your private Firebase gallery!",
+                            fontSize = 11.sp,
+                            color = Color(0xFF94A3B8),
+                            lineHeight = 15.sp
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Button(
+                            onClick = { showAuthDialog = true },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFF6366F1),
+                                contentColor = Color.White
+                            ),
+                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier.fillMaxWidth().height(36.dp),
+                            contentPadding = PaddingValues(0.dp)
                         ) {
-                            Icon(
-                                imageVector = if (!isPublicTab) Icons.Filled.Lock else Icons.Filled.Public,
-                                contentDescription = null,
-                                tint = if (!isPublicTab) Color(0xFF6366F1) else Color.White,
-                                modifier = Modifier.size(18.dp)
+                            Text(
+                                if (currentLang == "ar") "تسجيل الدخول / إنشاء حساب سحابي 🔒" else "Login / Create Cloud Account",
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold
                             )
                         }
-                        Spacer(modifier = Modifier.height(6.dp))
+                    } else {
                         Text(
-                            text = if (!isPublicTab) "رسوماتي الخاصة" else "المعرض العام",
-                            color = Color.White,
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 14.sp
+                            text = if (currentLang == "ar") "أهلاً بك! الحساب النشط: $firebaseEmail" else "Welcome back! Account: $firebaseEmail",
+                            fontSize = 11.sp,
+                            color = Color(0xFF4ADE80),
+                            fontWeight = FontWeight.Bold
                         )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Button(
+                                onClick = { 
+                                    viewModel.syncPrivateGallery()
+                                    showPrivateCloudGallerySheet = true 
+                                },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Color(0xFF312E81),
+                                    contentColor = Color.White
+                                ),
+                                shape = RoundedCornerShape(8.dp),
+                                modifier = Modifier.weight(1f).height(36.dp),
+                                contentPadding = PaddingValues(0.dp)
+                            ) {
+                                Icon(Icons.Filled.PhotoLibrary, contentDescription = null, modifier = Modifier.size(14.dp))
+                                Spacer(modifier = Modifier.width(4.dp))
+                                Text(
+                                    if (currentLang == "ar") "معرضي الخاص السحابي 📁" else "My Private Gallery",
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+
+                            Button(
+                                onClick = { viewModel.syncPrivateGallery() },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = Color(0xFF1E1B4B),
+                                    contentColor = Color(0xFF818CF8)
+                                ),
+                                shape = RoundedCornerShape(8.dp),
+                                modifier = Modifier.height(36.dp),
+                                contentPadding = PaddingValues(horizontal = 12.dp)
+                            ) {
+                                Icon(Icons.Filled.Sync, contentDescription = "تحديث", modifier = Modifier.size(14.dp))
+                            }
+                        }
                     }
                 }
             }
 
-            Spacer(modifier = Modifier.height(16.dp))
- 
-            // Tab toggles of Public Hub vs Client Drawings
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(
-                        Color(0xFF1A1A1A),
-                        shape = RoundedCornerShape(12.dp)
+            Spacer(modifier = Modifier.height(10.dp))
+
+            // Import Shared Painting Area
+            Card(
+                modifier = Modifier.fillMaxWidth().testTag("import_drawing_card"),
+                colors = CardDefaults.cardColors(
+                    containerColor = Color(0xFF131313)
+                ),
+                border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF252528)),
+                shape = RoundedCornerShape(12.dp)
+            ) {
+                Column(modifier = Modifier.padding(12.dp)) {
+                    Text(
+                        text = if (currentLang == "ar") "استيراد لوحة برمز مشاركة سحابي 🔍" else "Import Painting with Sharing Code",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 12.sp,
+                        color = Color.White
                     )
-                    .border(1.dp, Color(0xFF2A2A2A), RoundedCornerShape(12.dp))
-                    .padding(4.dp),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                TabButton(
-                    text = "رسمات عامة للمجتمع 🌍",
-                    selected = isPublicTab,
-                    modifier = Modifier.weight(1f),
-                    onClick = { viewModel.setGalleryTab(true) }
-                )
-                TabButton(
-                    text = "مرسمي الخاص 🔒",
-                    selected = !isPublicTab,
-                    modifier = Modifier.weight(1f),
-                    onClick = { viewModel.setGalleryTab(false) }
-                )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        OutlinedTextField(
+                            value = importCodeState,
+                            onValueChange = { 
+                                importCodeState = it
+                                importErrorMessage = null
+                                importSuccessMessage = null
+                            },
+                            placeholder = { 
+                                Text(
+                                    text = if (currentLang == "ar") "ألصق الرابط أو الرمز (مثال: رسم-5832)" else "Paste code or link...",
+                                    color = Color(0xFF64748B),
+                                    fontSize = 11.sp
+                                ) 
+                            },
+                            modifier = Modifier.weight(1f).height(44.dp),
+                            shape = RoundedCornerShape(8.dp),
+                            singleLine = true,
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = Color(0xFF6366F1),
+                                unfocusedBorderColor = Color(0xFF252528),
+                                focusedContainerColor = Color(0xFF0F0F0F),
+                                unfocusedContainerColor = Color(0xFF0F0F0F),
+                                focusedTextColor = Color.White,
+                                unfocusedTextColor = Color(0xFFE5E5E5)
+                            )
+                        )
+
+                        Button(
+                            onClick = {
+                                if (importCodeState.isNotBlank()) {
+                                    importLoading = true
+                                    importErrorMessage = null
+                                    importSuccessMessage = null
+                                    viewModel.importDrawingByCode(importCodeState) { msg, success ->
+                                        importLoading = false
+                                        if (success) {
+                                            importSuccessMessage = msg
+                                            importCodeState = ""
+                                        } else {
+                                            importErrorMessage = msg
+                                        }
+                                    }
+                                }
+                            },
+                            enabled = importCodeState.isNotBlank() && !importLoading,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFF6366F1),
+                                contentColor = Color.White
+                            ),
+                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier.height(44.dp)
+                        ) {
+                            if (importLoading) {
+                                CircularProgressIndicator(modifier = Modifier.size(14.dp), color = Color.White, strokeWidth = 2.dp)
+                            } else {
+                                Text(if (currentLang == "ar") "استيراد" else "Import", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                            }
+                        }
+                    }
+
+                    if (importErrorMessage != null) {
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(importErrorMessage!!, color = Color(0xFFF87171), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                    }
+
+                    if (importSuccessMessage != null) {
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(importSuccessMessage!!, color = Color(0xFF4ADE80), fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                    }
+                }
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(14.dp))
 
-            // Count summary
+            // Subtitle of Personal Drawings
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = if (isPublicTab) "معرض الإلهام العام" else "مجموعتي الفنية الخاصة",
+                    text = getTxt("personal_projects", currentLang),
                     fontWeight = FontWeight.Bold,
                     fontSize = 16.sp,
                     color = MaterialTheme.colorScheme.primary
                 )
                 Text(
-                    text = "${drawingsList.size} رسمات معروضة",
+                    text = "${drawingsList.size} " + getTxt("drawings_count", currentLang),
                     fontSize = 12.sp,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-            // Drawing Feed list
             if (drawingsList.isEmpty()) {
                 Box(
                     modifier = Modifier
@@ -498,13 +736,14 @@ fun HomeScreen(viewModel: DrawingViewModel, currentUsername: String) {
                         )
                         Spacer(modifier = Modifier.height(12.dp))
                         Text(
-                            text = "لا توجد لوحات فنية تطابق البحث!",
+                            text = getTxt("no_projects", currentLang),
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                            textAlign = TextAlign.Center
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = if (isPublicTab) "كن أول من يرسم لوحة وينشرها عامة لكل العالم!" else "لوحتك تظهر هنا عند حفظها وحمايتها كخاصة.",
+                            text = getTxt("no_projects_sub", currentLang),
                             fontSize = 12.sp,
                             textAlign = TextAlign.Center,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -516,7 +755,7 @@ fun HomeScreen(viewModel: DrawingViewModel, currentUsername: String) {
                     modifier = Modifier
                         .weight(1f)
                         .testTag("drawings_list"),
-                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
                     contentPadding = PaddingValues(bottom = 24.dp)
                 ) {
                     items(items = drawingsList, key = { it.id }) { drawing ->
@@ -529,6 +768,637 @@ fun HomeScreen(viewModel: DrawingViewModel, currentUsername: String) {
                 }
             }
         }
+    }
+
+    // Settings Dialog Definition
+    if (showSettingsDialog) {
+        var tempName by remember { mutableStateOf(currentUsername) }
+        var tempLang by remember { mutableStateOf(currentLang) }
+
+        AlertDialog(
+            onDismissRequest = { showSettingsDialog = false },
+            title = { 
+                Text(
+                    text = getTxt("settings", currentLang), 
+                    fontWeight = FontWeight.Bold
+                ) 
+            },
+            text = {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    // Painter User Name
+                    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text(
+                            text = getTxt("edit_username", currentLang), 
+                            fontSize = 12.sp, 
+                            fontWeight = FontWeight.Bold, 
+                            color = Color.LightGray
+                        )
+                        OutlinedTextField(
+                            value = tempName,
+                            onValueChange = { tempName = it },
+                            singleLine = true,
+                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                    }
+
+                    // Application Language choice
+                    Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                        Text(
+                            text = getTxt("change_lang", currentLang), 
+                            fontSize = 12.sp, 
+                            fontWeight = FontWeight.Bold, 
+                            color = Color.LightGray
+                        )
+                        Row(
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Button(
+                                onClick = { tempLang = "ar" },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = if (tempLang == "ar") Color(0xFF6366F1) else Color(0xFF1F1F1F)
+                                ),
+                                shape = RoundedCornerShape(8.dp),
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Text("العربية", color = Color.White)
+                            }
+
+                            Button(
+                                onClick = { tempLang = "en" },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = if (tempLang == "en") Color(0xFF6366F1) else Color(0xFF1F1F1F)
+                                ),
+                                shape = RoundedCornerShape(8.dp),
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Text("English", color = Color.White)
+                            }
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        if (tempName.isNotBlank()) {
+                            viewModel.setUsername(tempName)
+                        }
+                        viewModel.setAppLanguage(tempLang)
+                        showSettingsDialog = false
+                    }
+                ) {
+                    Text(getTxt("save_username", currentLang))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showSettingsDialog = false }) {
+                    Text(getTxt("cancel", currentLang))
+                }
+            }
+        )
+    }
+
+    // Create New Drawing Dialog with Custom Pixel Width and Height
+    if (showCreateDialog) {
+        var propName by remember { mutableStateOf("") }
+        var propWidth by remember { mutableStateOf("1000") }
+        var propHeight by remember { mutableStateOf("1000") }
+
+        AlertDialog(
+            onDismissRequest = { showCreateDialog = false },
+            title = { 
+                Text(
+                    text = getTxt("create_new", currentLang), 
+                    fontWeight = FontWeight.Bold
+                ) 
+            },
+            text = {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    OutlinedTextField(
+                        value = propName,
+                        onValueChange = { propName = it },
+                        label = { Text(getTxt("drawing_name", currentLang)) },
+                        placeholder = { Text(getTxt("title_placeholder", currentLang)) },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    OutlinedTextField(
+                        value = propWidth,
+                        onValueChange = { newValue ->
+                            if (newValue.all { it.isDigit() }) propWidth = newValue
+                        },
+                        label = { Text(getTxt("width_px", currentLang)) },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Number)
+                    )
+
+                    OutlinedTextField(
+                        value = propHeight,
+                        onValueChange = { newValue ->
+                            if (newValue.all { it.isDigit() }) propHeight = newValue
+                        },
+                        label = { Text(getTxt("height_px", currentLang)) },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth(),
+                        keyboardOptions = KeyboardOptions(keyboardType = androidx.compose.ui.text.input.KeyboardType.Number)
+                    )
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        val finalWidth = propWidth.toIntOrNull() ?: 1000
+                        val finalHeight = propHeight.toIntOrNull() ?: 1000
+                        val finalName = propName.ifBlank { 
+                            if (currentLang == "ar") "لوحتي الجديدة" else "My New Drawing" 
+                        }
+                        viewModel.clearCanvas()
+                        viewModel.currentDrawingTitle.value = finalName
+                        viewModel.currentCanvasWidth.value = finalWidth
+                        viewModel.currentCanvasHeight.value = finalHeight
+                        viewModel.navigateTo(ScreenState.Canvas)
+                        showCreateDialog = false
+                    }
+                ) {
+                    Text(getTxt("create", currentLang))
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showCreateDialog = false }) {
+                    Text(getTxt("cancel", currentLang))
+                }
+            }
+        )
+    }
+
+    // 1. Firebase Authentication Dialog
+    if (showAuthDialog) {
+        var isSignUpMode by remember { mutableStateOf(false) }
+        var emailInput by remember { mutableStateOf("") }
+        var passwordInput by remember { mutableStateOf("") }
+        var painterInput by remember { mutableStateOf("") }
+
+        val authLoading by viewModel.firebaseAuthLoading.collectAsStateWithLifecycle()
+        val authError by viewModel.firebaseAuthError.collectAsStateWithLifecycle()
+
+        val onDismissAuth = {
+            showAuthDialog = false
+            viewModel.clearAuthError()
+            emailInput = ""
+            passwordInput = ""
+            painterInput = ""
+        }
+
+        AlertDialog(
+            onDismissRequest = onDismissAuth,
+            shape = RoundedCornerShape(16.dp),
+            containerColor = Color(0xFF0F0F10),
+            title = {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Filled.Lock,
+                        contentDescription = null,
+                        tint = Color(0xFF818CF8),
+                        modifier = Modifier.size(20.dp)
+                    )
+                    Text(
+                        text = if (currentLang == "ar") "بوابة رسمتك السحابية" else "Rasmatak Cloud Portal",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 16.sp
+                    )
+                }
+            },
+            text = {
+                Column(
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(
+                        text = if (currentLang == "ar") 
+                            "سجِّل الدخول أو أنشئ حساباً لحفظ لوحاتك في السحاب واستردادها من أي جهاز ومشاركتها بروابط مباشرة!"
+                            else "Sign in or register to auto-save and access your drawings from any device!",
+                        fontSize = 11.sp,
+                        color = Color(0xFF94A3B8),
+                        lineHeight = 14.sp
+                    )
+
+                    // Sign Up / Login toggle buttons
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(8.dp))
+                            .background(Color(0xFF1B1B1E))
+                            .padding(2.dp),
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    ) {
+                        Button(
+                            onClick = { isSignUpMode = false },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (!isSignUpMode) Color(0xFF6366F1) else Color.Transparent,
+                                contentColor = if (!isSignUpMode) Color.White else Color(0xFF94A3B8)
+                            ),
+                            shape = RoundedCornerShape(6.dp),
+                            modifier = Modifier.weight(1f).height(34.dp),
+                            contentPadding = PaddingValues(0.dp)
+                        ) {
+                            Text(if (currentLang == "ar") "تسجيل الدخول" else "Login", fontWeight = FontWeight.Bold, fontSize = 11.sp)
+                        }
+
+                        Button(
+                            onClick = { isSignUpMode = true },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (isSignUpMode) Color(0xFF6366F1) else Color.Transparent,
+                                contentColor = if (isSignUpMode) Color.White else Color(0xFF94A3B8)
+                            ),
+                            shape = RoundedCornerShape(6.dp),
+                            modifier = Modifier.weight(1f).height(34.dp),
+                            contentPadding = PaddingValues(0.dp)
+                        ) {
+                            Text(if (currentLang == "ar") "حساب جديد" else "Sign Up", fontWeight = FontWeight.Bold, fontSize = 11.sp)
+                        }
+                    }
+
+                    // Email Field
+                    OutlinedTextField(
+                        value = emailInput,
+                        onValueChange = { emailInput = it },
+                        label = { Text(if (currentLang == "ar") "بريد حسابك السحابي" else "Email Address", fontSize = 11.sp) },
+                        placeholder = { Text("draw@example.com", fontSize = 10.sp, color = Color(0xFF4A4A4D)) },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth().height(52.dp),
+                        shape = RoundedCornerShape(10.dp),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedTextColor = Color.White,
+                            unfocusedTextColor = Color(0xFFE5E5E5),
+                            focusedBorderColor = Color(0xFF818CF8),
+                            unfocusedBorderColor = Color(0xFF2E2E32),
+                            focusedContainerColor = Color(0xFF121214),
+                            unfocusedContainerColor = Color(0xFF121214)
+                        )
+                    )
+
+                    // Username (only for SignUp)
+                    if (isSignUpMode) {
+                        OutlinedTextField(
+                            value = painterInput,
+                            onValueChange = { painterInput = it },
+                            label = { Text(if (currentLang == "ar") "اسمك الفني (الرسام)" else "Painter Username", fontSize = 11.sp) },
+                            placeholder = { Text("e.g. Picasso", fontSize = 10.sp, color = Color(0xFF4A4A4D)) },
+                            singleLine = true,
+                            modifier = Modifier.fillMaxWidth().height(52.dp),
+                            shape = RoundedCornerShape(10.dp),
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedTextColor = Color.White,
+                                unfocusedTextColor = Color(0xFFE5E5E5),
+                                focusedBorderColor = Color(0xFF818CF8),
+                                unfocusedBorderColor = Color(0xFF2E2E32),
+                                focusedContainerColor = Color(0xFF121214),
+                                unfocusedContainerColor = Color(0xFF121214)
+                            )
+                        )
+                    }
+
+                    // Password Field
+                    OutlinedTextField(
+                        value = passwordInput,
+                        onValueChange = { passwordInput = it },
+                        label = { Text(if (currentLang == "ar") "كلمة المرور" else "Password", fontSize = 11.sp) },
+                        placeholder = { Text("••••••••", fontSize = 10.sp, color = Color(0xFF4A4A4D)) },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth().height(52.dp),
+                        shape = RoundedCornerShape(10.dp),
+                        colors = OutlinedTextFieldDefaults.colors(
+                            focusedTextColor = Color.White,
+                            unfocusedTextColor = Color(0xFFE5E5E5),
+                            focusedBorderColor = Color(0xFF818CF8),
+                            unfocusedBorderColor = Color(0xFF2E2E32),
+                            focusedContainerColor = Color(0xFF121214),
+                            unfocusedContainerColor = Color(0xFF121214)
+                        )
+                    )
+
+                    authError?.let { err ->
+                        Text(
+                            text = err,
+                            color = Color(0xFFEF4444),
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Bold,
+                            lineHeight = 14.sp
+                        )
+                    }
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        if (emailInput.isNotBlank() && passwordInput.isNotBlank()) {
+                            if (isSignUpMode) {
+                                val name = painterInput.ifBlank { "رسام سحابي" }
+                                viewModel.signUp(emailInput, name, passwordInput) {
+                                    onDismissAuth()
+                                }
+                            } else {
+                                viewModel.login(emailInput, passwordInput) {
+                                    onDismissAuth()
+                                }
+                            }
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF6366F1),
+                        contentColor = Color.White
+                    ),
+                    shape = RoundedCornerShape(8.dp),
+                    enabled = !authLoading && emailInput.isNotBlank() && passwordInput.isNotBlank()
+                ) {
+                    if (authLoading) {
+                        CircularProgressIndicator(modifier = Modifier.size(14.dp), color = Color.White, strokeWidth = 2.dp)
+                    } else {
+                        Text(
+                            text = if (isSignUpMode) {
+                                if (currentLang == "ar") "إنشاء الحساب 🚀" else "Register"
+                            } else {
+                                if (currentLang == "ar") "تسجيل الدخول 🔓" else "Sign In"
+                            },
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 12.sp
+                        )
+                    }
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = onDismissAuth) {
+                    Text(getTxt("cancel", currentLang), color = Color(0xFF94A3B8), fontSize = 12.sp)
+                }
+            }
+        )
+    }
+
+    // 2. Private Cloud Gallery Dialog
+    if (showPrivateCloudGallerySheet) {
+        val cloudLoadError by viewModel.firebasePrivateLoadError.collectAsStateWithLifecycle()
+        val privateCloudLoading by viewModel.firebasePrivateLoading.collectAsStateWithLifecycle()
+
+        var privateImportStatusMessage by remember { mutableStateOf<String?>(null) }
+        var isPrivateImportSuccess by remember { mutableStateOf(false) }
+
+        AlertDialog(
+            onDismissRequest = { showPrivateCloudGallerySheet = false },
+            properties = androidx.compose.ui.window.DialogProperties(usePlatformDefaultWidth = false),
+            modifier = Modifier.padding(16.dp).fillMaxWidth().widthIn(max = 480.dp).fillMaxHeight(0.85f).testTag("private_gallery_dialog"),
+            shape = RoundedCornerShape(16.dp),
+            containerColor = Color(0xFF0F0F10),
+            title = {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            imageVector = Icons.Filled.PhotoLibrary,
+                            contentDescription = null,
+                            tint = Color(0xFF4ADE80),
+                            modifier = Modifier.size(20.dp)
+                        )
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text(
+                            text = if (currentLang == "ar") "معرضي الخاص السحابي 📁" else "My Private Cloud Gallery",
+                            color = Color.White,
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 15.sp
+                        )
+                    }
+                    IconButton(
+                        onClick = { viewModel.syncPrivateGallery() },
+                        modifier = Modifier.size(28.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Sync,
+                            contentDescription = "مزامنة",
+                            tint = Color.LightGray,
+                            modifier = Modifier.size(16.dp)
+                        )
+                    }
+                }
+            },
+            text = {
+                Column(modifier = Modifier.fillMaxSize()) {
+                    Text(
+                        text = if (currentLang == "ar") 
+                            "تُحفظ لوحاتك هنا سحابياً وتلقائياً. اضغط على أي لوحة لاستردادها وتحميلها فوراً في مرسمك المحلي!"
+                            else "Your cloud-saved drawings. Click to restore / download any drawing instantly into your local studio!",
+                        fontSize = 11.sp,
+                        color = Color(0xFF94A3B8),
+                        lineHeight = 14.sp
+                    )
+                    Spacer(modifier = Modifier.height(10.dp))
+
+                    privateImportStatusMessage?.let { msg ->
+                        Card(
+                            colors = CardDefaults.cardColors(
+                                containerColor = if (isPrivateImportSuccess) Color(0xFF064E3B) else Color(0xFF7F1D1D)
+                            ),
+                            shape = RoundedCornerShape(8.dp),
+                            modifier = Modifier.fillMaxWidth().padding(bottom = 10.dp)
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    imageVector = if (isPrivateImportSuccess) Icons.Filled.CheckCircle else Icons.Filled.Error,
+                                    contentDescription = null,
+                                    tint = Color.White,
+                                    modifier = Modifier.size(14.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text(
+                                    text = msg,
+                                    color = Color.White,
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+                        }
+                    }
+
+                    if (privateCloudLoading) {
+                        Box(modifier = Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                            CircularProgressIndicator(color = Color(0xFF4ADE80))
+                        }
+                    } else if (cloudLoadError != null) {
+                        Box(modifier = Modifier.weight(1f).fillMaxWidth(), contentAlignment = Alignment.Center) {
+                            Text(
+                                text = cloudLoadError!!,
+                                color = Color(0xFFEF4444),
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    } else if (privateCloudDrawings.isEmpty()) {
+                        Box(
+                            modifier = Modifier.weight(1f).fillMaxWidth().padding(24.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Icon(
+                                    imageVector = Icons.Filled.Info,
+                                    contentDescription = null,
+                                    tint = Color(0xFF475569),
+                                    modifier = Modifier.size(36.dp)
+                                )
+                                Spacer(modifier = Modifier.height(6.dp))
+                                Text(
+                                    text = if (currentLang == "ar") "معرضك السحابي فارغ حالياً!" else "Cloud gallery is empty!",
+                                    color = Color(0xFF94A3B8),
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 12.sp
+                                )
+                                Spacer(modifier = Modifier.height(4.dp))
+                                Text(
+                                    text = if (currentLang == "ar") 
+                                        "قم برسم لوحاتك وحفظها لتتم مزامنتها تلقائياً بالخلفية." 
+                                        else "Draw and save panels to auto-sync inside your cloud storage.",
+                                    color = Color(0xFF475569),
+                                    fontSize = 11.sp,
+                                    textAlign = TextAlign.Center
+                                )
+                            }
+                        }
+                    } else {
+                        LazyColumn(
+                            modifier = Modifier.weight(1f).fillMaxWidth(),
+                            verticalArrangement = Arrangement.spacedBy(8.dp),
+                            contentPadding = PaddingValues(vertical = 4.dp)
+                        ) {
+                            items(privateCloudDrawings) { cloudDrawing ->
+                                val bmp = remember(cloudDrawing.imageBase64) {
+                                    com.example.data.FirebaseSyncManager.decodeBase64ToBitmap(cloudDrawing.imageBase64)
+                                }
+                                Card(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            viewModel.importFirebaseDrawingDirectly(cloudDrawing) { resMsg, success ->
+                                                privateImportStatusMessage = resMsg
+                                                isPrivateImportSuccess = success
+                                                if (success) {
+                                                    showPrivateCloudGallerySheet = false
+                                                }
+                                            }
+                                        },
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = Color(0xFF161619)
+                                    ),
+                                    border = androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF2E2E32)),
+                                    shape = RoundedCornerShape(10.dp)
+                                ) {
+                                    Row(
+                                        modifier = Modifier.padding(8.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Box(
+                                            modifier = Modifier
+                                                .size(60.dp)
+                                                .clip(RoundedCornerShape(8.dp))
+                                                .background(Color.White)
+                                                .border(1.dp, Color(0xFF475569), RoundedCornerShape(8.dp)),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            if (bmp != null) {
+                                                androidx.compose.foundation.Image(
+                                                    bitmap = bmp.asImageBitmap(),
+                                                    contentDescription = cloudDrawing.title,
+                                                    modifier = Modifier.fillMaxSize()
+                                                )
+                                            } else {
+                                                Icon(
+                                                    imageVector = Icons.Filled.Landscape,
+                                                    contentDescription = null,
+                                                    tint = Color.LightGray
+                                                )
+                                            }
+                                        }
+
+                                        Spacer(modifier = Modifier.width(10.dp))
+
+                                        Column(modifier = Modifier.weight(1f)) {
+                                            Text(
+                                                text = cloudDrawing.title,
+                                                fontWeight = FontWeight.Bold,
+                                                fontSize = 13.sp,
+                                                color = Color.White
+                                            )
+                                            if (cloudDrawing.description.isNotEmpty()) {
+                                                Text(
+                                                    text = cloudDrawing.description,
+                                                    fontSize = 11.sp,
+                                                    color = Color(0xFF94A3B8),
+                                                    maxLines = 1,
+                                                    overflow = TextOverflow.Ellipsis
+                                                )
+                                            }
+                                            Text(
+                                                text = "ID: ${cloudDrawing.drawingIdString}",
+                                                fontSize = 10.sp,
+                                                color = Color(0xFF818CF8),
+                                                fontWeight = FontWeight.SemiBold
+                                            )
+                                        }
+
+                                        IconButton(
+                                            onClick = {
+                                                viewModel.importFirebaseDrawingDirectly(cloudDrawing) { resMsg, success ->
+                                                    privateImportStatusMessage = resMsg
+                                                    isPrivateImportSuccess = success
+                                                    if (success) {
+                                                        showPrivateCloudGallerySheet = false
+                                                    }
+                                                }
+                                            }
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Filled.Download,
+                                                contentDescription = "تحميل",
+                                                tint = Color(0xFF4ADE80),
+                                                modifier = Modifier.size(18.dp)
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                Button(
+                    onClick = { showPrivateCloudGallerySheet = false },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFF1E1B4B),
+                        contentColor = Color(0xFF818CF8)
+                    ),
+                    shape = RoundedCornerShape(8.dp)
+                ) {
+                    Text(if (currentLang == "ar") "إغلاق المعرض" else "Close Gallery", fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                }
+            }
+        )
     }
 }
 
@@ -815,6 +1685,7 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
     val currentBrushSize by viewModel.brushSize
     val currentShapeType by viewModel.brushShapeType
     val currentIsEraser by viewModel.brushIsEraser
+    val currentLang by viewModel.appLanguage.collectAsStateWithLifecycle()
 
     var showSaveDetailsDialog by remember { mutableStateOf(false) }
 
@@ -826,66 +1697,111 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
     var activeConfigTab by remember { mutableStateOf("brush") } // "brush", "layers", "mixer"
     var isMoveToolActive by remember { mutableStateOf(false) }
 
+    // Zoom and Pan states
+    var zoomScale by remember { mutableStateOf(1f) }
+    var panOffset by remember { mutableStateOf(Offset.Zero) }
+    var isHandToolActive by remember { mutableStateOf(false) }
+
+    // Visibility toggles
+    var isTopBarVisible by remember { mutableStateOf(true) }
+    var isBottomConfigVisible by remember { mutableStateOf(true) }
+    var isBottomConfigExpanded by remember { mutableStateOf(true) }
+
     Scaffold(
         bottomBar = {
-            Column(
-                modifier = Modifier
-                    .background(Color(0xFF131313))
-                    .border(androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF222222)))
-                    .padding(12.dp)
-                    .navigationBarsPadding(),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                // Tab Selector Row
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    verticalAlignment = Alignment.CenterVertically
+            if (isBottomConfigVisible) {
+                Column(
+                    modifier = Modifier
+                        .background(Color(0xFF131313))
+                        .border(androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF222222)))
+                        .padding(12.dp)
+                        .navigationBarsPadding(),
+                    verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
-                    // Brush Tab Button
-                    Button(
-                        onClick = { activeConfigTab = "brush" },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = if (activeConfigTab == "brush") Color(0xFF6366F1) else Color(0xFF1F1F1F),
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier.weight(1f)
+                    // Tab Selector Row
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text("🖌️ الفرشاة والمظهر", fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                        // Collapse / Expand toggle button (Three Lines Menu icon)
+                        IconButton(
+                            onClick = { isBottomConfigExpanded = !isBottomConfigExpanded },
+                            modifier = Modifier.size(36.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Menu,
+                                contentDescription = "Toggle Panel Height",
+                                tint = if (isBottomConfigExpanded) Color(0xFF6366F1) else Color.White
+                            )
+                        }
+
+                        // Brush Tab Button
+                        Button(
+                            onClick = { 
+                                activeConfigTab = "brush" 
+                                isBottomConfigExpanded = true
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (activeConfigTab == "brush" && isBottomConfigExpanded) Color(0xFF6366F1) else Color(0xFF1F1F1F),
+                                contentColor = Color.White
+                            ),
+                            shape = RoundedCornerShape(10.dp),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(getTxt("brush_tab", currentLang), fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                        }
+                        
+                        // Layers Tab Button
+                        Button(
+                            onClick = { 
+                                activeConfigTab = "layers" 
+                                isBottomConfigExpanded = true
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (activeConfigTab == "layers" && isBottomConfigExpanded) Color(0xFF6366F1) else Color(0xFF1F1F1F),
+                                contentColor = Color.White
+                            ),
+                            shape = RoundedCornerShape(10.dp),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(getTxt("layers_tab", currentLang), fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                        }
+                        
+                        // Color Mixer Tab Button
+                        Button(
+                            onClick = { 
+                                activeConfigTab = "mixer" 
+                                isBottomConfigExpanded = true
+                            },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = if (activeConfigTab == "mixer" && isBottomConfigExpanded) Color(0xFF6366F1) else Color(0xFF1F1F1F),
+                                contentColor = Color.White
+                            ),
+                            shape = RoundedCornerShape(10.dp),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text(getTxt("mixer_tab", currentLang), fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+                        }
+
+                        // Close bottom panel button
+                        IconButton(
+                            onClick = { isBottomConfigVisible = false },
+                            modifier = Modifier.size(36.dp)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Close,
+                                contentDescription = "Close Panel",
+                                tint = Color(0xFFEF4444)
+                            )
+                        }
                     }
                     
-                    // Layers Tab Button
-                    Button(
-                        onClick = { activeConfigTab = "layers" },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = if (activeConfigTab == "layers") Color(0xFF6366F1) else Color(0xFF1F1F1F),
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Text("🥞 الطبقات والتحريك", fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1)
-                    }
-                    
-                    // Color Mixer Tab Button
-                    Button(
-                        onClick = { activeConfigTab = "mixer" },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = if (activeConfigTab == "mixer") Color(0xFF6366F1) else Color(0xFF1F1F1F),
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier.weight(1f)
-                    ) {
-                        Text("🧪 دمج ومزج الألوان", fontSize = 11.sp, fontWeight = FontWeight.Bold, maxLines = 1)
-                    }
-                }
-                
-                HorizontalDivider(color = Color(0xFF222222), thickness = 1.dp)
-                
-                // Render Panel based on activeConfigTab
-                when (activeConfigTab) {
+                    if (isBottomConfigExpanded) {
+                        HorizontalDivider(color = Color(0xFF222222), thickness = 1.dp)
+                        
+                        // Render Panel based on activeConfigTab
+                        when (activeConfigTab) {
                     "brush" -> {
                         // 1. Brush Size Control
                         Row(
@@ -893,11 +1809,11 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = if (currentIsEraser) "حجم الممحاة" else "حجم الخط",
+                                text = if (currentIsEraser) getTxt("eraser_size", currentLang) else getTxt("brush_size", currentLang),
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = Color.White,
-                                modifier = Modifier.width(70.dp)
+                                modifier = Modifier.width(80.dp)
                             )
                             Slider(
                                 value = currentBrushSize,
@@ -926,24 +1842,34 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = "تأثير الفرشاة:",
+                                text = if (currentLang == "ar") "تأثير الفرشاة:" else "Brush Effect:",
                                 fontSize = 11.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = Color.White,
-                                modifier = Modifier.width(70.dp)
+                                modifier = Modifier.width(80.dp)
                             )
                             
                             LazyRow(
                                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                                 modifier = Modifier.weight(1f)
                             ) {
-                                val styles = listOf(
-                                    Pair(BrushStyle.SOLID, "قلم مصمت"),
-                                    Pair(BrushStyle.DASHED, "فرشاة متقطعة"),
-                                    Pair(BrushStyle.DOTTED, "تنقيط فني"),
-                                    Pair(BrushStyle.AIRBRUSH, "رشاش ضبابي"),
-                                    Pair(BrushStyle.NEON, "نيون مضيء")
-                                )
+                                val styles = if (currentLang == "ar") {
+                                    listOf(
+                                        Pair(BrushStyle.SOLID, "قلم مصمت"),
+                                        Pair(BrushStyle.DASHED, "فرشاة متقطعة"),
+                                        Pair(BrushStyle.DOTTED, "تنقيط فني"),
+                                        Pair(BrushStyle.AIRBRUSH, "رشاش ضبابي"),
+                                        Pair(BrushStyle.NEON, "نيون مضيء")
+                                    )
+                                } else {
+                                    listOf(
+                                        Pair(BrushStyle.SOLID, "Solid Pen"),
+                                        Pair(BrushStyle.DASHED, "Dashed Brush"),
+                                        Pair(BrushStyle.DOTTED, "Dotted Paint"),
+                                        Pair(BrushStyle.AIRBRUSH, "Airbrush"),
+                                        Pair(BrushStyle.NEON, "Neon Glow")
+                                    )
+                                }
                                 items(styles.size) { index ->
                                     val (styleVal, styleName) = styles[index]
                                     val selected = currentBrushStyle == styleVal && !currentIsEraser
@@ -1003,7 +1929,7 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                         ) {
                             ToolButton(
                                 icon = Icons.Filled.Gesture,
-                                description = "حر",
+                                description = if (currentLang == "ar") "حر" else "Free",
                                 selected = currentShapeType == ShapeType.FREEHAND && !currentIsEraser,
                                 onClick = {
                                     viewModel.brushShapeType.value = ShapeType.FREEHAND
@@ -1012,7 +1938,7 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                             )
                             ToolButton(
                                 icon = Icons.Filled.HorizontalRule,
-                                description = "مستقيم",
+                                description = if (currentLang == "ar") "مستقيم" else "Line",
                                 selected = currentShapeType == ShapeType.LINE && !currentIsEraser,
                                 onClick = {
                                     viewModel.brushShapeType.value = ShapeType.LINE
@@ -1021,7 +1947,7 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                             )
                             ToolButton(
                                 icon = Icons.Outlined.Circle,
-                                description = "دائرة",
+                                description = if (currentLang == "ar") "دائرة" else "Circle",
                                 selected = currentShapeType == ShapeType.CIRCLE && !currentIsEraser,
                                 onClick = {
                                     viewModel.brushShapeType.value = ShapeType.CIRCLE
@@ -1030,7 +1956,7 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                             )
                             ToolButton(
                                 icon = Icons.Outlined.CropSquare,
-                                description = "مستطيل",
+                                description = if (currentLang == "ar") "مستطيل" else "Rectangle",
                                 selected = currentShapeType == ShapeType.RECTANGLE && !currentIsEraser,
                                 onClick = {
                                     viewModel.brushShapeType.value = ShapeType.RECTANGLE
@@ -1039,7 +1965,7 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                             )
                             ToolButton(
                                 icon = Icons.Filled.TrendingFlat,
-                                description = "سهم",
+                                description = if (currentLang == "ar") "سهم" else "Arrow",
                                 selected = currentShapeType == ShapeType.ARROW && !currentIsEraser,
                                 onClick = {
                                     viewModel.brushShapeType.value = ShapeType.ARROW
@@ -1048,7 +1974,7 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                             )
                             ToolButton(
                                 icon = Icons.Filled.LayersClear,
-                                description = "ممحاة",
+                                description = if (currentLang == "ar") "ممحاة" else "Eraser",
                                 selected = currentIsEraser,
                                 onClick = {
                                     viewModel.brushIsEraser.value = true
@@ -1083,7 +2009,15 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                     modifier = Modifier.size(14.dp)
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Text(if (isMoveToolActive) "تعطيل التحريك ❌" else "أداة تحريك الطبقة 🖐️", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                Text(
+                                    text = if (isMoveToolActive) {
+                                        if (currentLang == "ar") "تعطيل التحريك" else "Disable Move"
+                                    } else {
+                                        if (currentLang == "ar") "تحريك الطبقة" else "Move Layer"
+                                    },
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
                             }
                             
                             // Add layer
@@ -1094,13 +2028,21 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                             ) {
                                 Icon(Icons.Filled.Add, contentDescription = null, modifier = Modifier.size(14.dp))
                                 Spacer(modifier = Modifier.width(4.dp))
-                                Text("طبقة جديدة +", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                Text(
+                                    text = if (currentLang == "ar") "طبقة جديدة" else "New Layer",
+                                    fontSize = 10.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
                             }
                         }
                         
                         if (isMoveToolActive) {
                             Text(
-                                text = "👉 أداة التحريك نشطة! اسحب بإصبعك على شاشة الرسم لتحريك الطبقة المحددة الآن.",
+                                text = if (currentLang == "ar") {
+                                    "أداة تحريك الطبقة نشطة! اسحب بإصبعك على شاشة الرسم لتحريك الطبقة المحددة."
+                                } else {
+                                    "Layer move tool is active! Drag on the canvas to move the selected layer."
+                                },
                                 fontSize = 10.sp,
                                 color = Color(0xFF818CF8),
                                 fontWeight = FontWeight.Bold
@@ -1179,7 +2121,11 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                             verticalAlignment = Alignment.CenterVertically,
                                             horizontalArrangement = Arrangement.spacedBy(4.dp)
                                         ) {
-                                            Text("شفافية:", color = Color.Gray, fontSize = 9.sp)
+                                            Text(
+                                                text = if (currentLang == "ar") "الشفافية:" else "Opacity:",
+                                                color = Color.Gray,
+                                                fontSize = 9.sp
+                                            )
                                             Slider(
                                                 value = layer.opacity,
                                                 onValueChange = { viewModel.setLayerOpacity(layer.id, it) },
@@ -1236,7 +2182,16 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                             modifier = Modifier.fillMaxWidth(),
                             verticalArrangement = Arrangement.spacedBy(8.dp)
                         ) {
-                            Text("🧪 دمج ومزج الألوان الفنية بطريقتك:", fontSize = 11.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                            Text(
+                                text = if (currentLang == "ar") {
+                                    "مزج ودمج الألوان الفنية بطريقتك:"
+                                } else {
+                                    "Custom Color Mixing & Palette:"
+                                },
+                                fontSize = 11.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White
+                            )
                             
                             Row(
                                 modifier = Modifier.fillMaxWidth(),
@@ -1244,7 +2199,11 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
-                                    Text("اللون الأول", color = Color.Gray, fontSize = 9.sp)
+                                    Text(
+                                        text = if (currentLang == "ar") "اللون الأول" else "Color 1",
+                                        color = Color.Gray,
+                                        fontSize = 9.sp
+                                    )
                                     Spacer(modifier = Modifier.height(2.dp))
                                     Box(
                                         modifier = Modifier
@@ -1269,7 +2228,16 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                 }
                                 
                                 Column(modifier = Modifier.weight(2f), horizontalAlignment = Alignment.CenterHorizontally) {
-                                    Text("نسبة المزج: ${(ratio * 100).toInt()}%", color = Color.White, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                    Text(
+                                        text = if (currentLang == "ar") {
+                                            "نسبة المزج: ${(ratio * 100).toInt()}%"
+                                        } else {
+                                            "Mix Ratio: ${(ratio * 100).toInt()}%"
+                                        },
+                                        color = Color.White,
+                                        fontSize = 10.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
                                     Slider(
                                         value = ratio,
                                         onValueChange = { ratio = it },
@@ -1283,7 +2251,11 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                 }
                                 
                                 Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.weight(1f)) {
-                                    Text("اللون الثاني", color = Color.Gray, fontSize = 9.sp)
+                                    Text(
+                                        text = if (currentLang == "ar") "اللون الثاني" else "Color 2",
+                                        color = Color.Gray,
+                                        fontSize = 9.sp
+                                    )
                                     Spacer(modifier = Modifier.height(2.dp))
                                     Box(
                                         modifier = Modifier
@@ -1330,7 +2302,12 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                                 .background(mixedResult)
                                                 .border(1.dp, Color.White, CircleShape)
                                         )
-                                        Text("اللون المزيج الناتج", color = Color.White, fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                        Text(
+                                            text = if (currentLang == "ar") "اللون الناتج" else "Mixed Result",
+                                            color = Color.White,
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.Bold
+                                        )
                                     }
                                 }
                                 
@@ -1343,7 +2320,11 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                     shape = RoundedCornerShape(8.dp),
                                     modifier = Modifier.height(34.dp)
                                 ) {
-                                    Text("اعتماد المزيج كفرشاة الرسم 🎨", fontSize = 10.sp, fontWeight = FontWeight.Bold)
+                                    Text(
+                                        text = if (currentLang == "ar") "اعتماد المزيج كفرشاة الرسم" else "Apply to Brush",
+                                        fontSize = 10.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
                                 }
                             }
                         }
@@ -1351,70 +2332,82 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                 }
             }
         }
-    ) { innerPadding ->
+    } } ) { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
             // Header Top Bar
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(0xFF131313))
-                    .border(androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF222222)))
-                    .padding(horizontal = 12.dp, vertical = 6.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    IconButton(onClick = { viewModel.navigateBack() }) {
-                        Icon(Icons.Filled.ArrowBack, contentDescription = "تراجع", tint = Color.White)
+            if (isTopBarVisible) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color(0xFF131313))
+                        .border(androidx.compose.foundation.BorderStroke(1.dp, Color(0xFF222222)))
+                        .padding(horizontal = 12.dp, vertical = 6.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        IconButton(onClick = { viewModel.navigateBack() }) {
+                            Icon(Icons.Filled.ArrowBack, contentDescription = getTxt("back", currentLang), tint = Color.White)
+                        }
+                        
+                        // Hide Top Bar button (Three Lines Menu icon)
+                        IconButton(onClick = { isTopBarVisible = false }) {
+                            Icon(
+                                imageVector = Icons.Filled.Menu,
+                                contentDescription = "Hide Top Bar",
+                                tint = Color.LightGray
+                            )
+                        }
+                        
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text(
+                            text = getTxt("canvas_title", currentLang),
+                            fontWeight = FontWeight.Bold,
+                            fontSize = 16.sp,
+                            color = Color.White
+                        )
                     }
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = "مرسم الألوان الفني 🎨",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
-                        color = Color.White
-                    )
-                }
 
-                // Undo - Redo - Clear - Save
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    IconButton(
-                        onClick = { viewModel.undoCanvas() },
-                        enabled = strokes.isNotEmpty()
-                    ) {
-                        Icon(
-                            Icons.Filled.Undo,
-                            contentDescription = "خطوة للخلف",
-                            tint = if (strokes.isNotEmpty()) Color.White else Color(0xFF475569)
-                        )
-                    }
-                    IconButton(
-                        onClick = { viewModel.redoCanvas() },
-                        enabled = redoStrokes.isNotEmpty()
-                    ) {
-                        Icon(
-                            Icons.Filled.Redo,
-                            contentDescription = "خطوة للأمام",
-                            tint = if (redoStrokes.isNotEmpty()) Color.White else Color(0xFF475569)
-                        )
-                    }
-                    IconButton(onClick = { viewModel.clearCanvas() }) {
-                        Icon(Icons.Filled.Delete, contentDescription = "مسح اللوحة كاملة", tint = Color(0xFFEF4444))
-                    }
-                    Button(
-                        onClick = { showSaveDetailsDialog = true },
-                        colors = ButtonDefaults.buttonColors(
-                            containerColor = Color(0xFF6366F1),
-                            contentColor = Color.White
-                        ),
-                        shape = RoundedCornerShape(12.dp),
-                        modifier = Modifier.padding(start = 4.dp)
-                    ) {
-                        Text("حفظ", fontWeight = FontWeight.Bold)
+                    // Undo - Redo - Clear - Save
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        IconButton(
+                            onClick = { viewModel.undoCanvas() },
+                            enabled = strokes.isNotEmpty()
+                        ) {
+                            Icon(
+                                Icons.Filled.Undo,
+                                contentDescription = getTxt("undo", currentLang),
+                                tint = if (strokes.isNotEmpty()) Color.White else Color(0xFF475569)
+                            )
+                        }
+                        IconButton(
+                            onClick = { viewModel.redoCanvas() },
+                            enabled = redoStrokes.isNotEmpty()
+                        ) {
+                            Icon(
+                                Icons.Filled.Redo,
+                                contentDescription = getTxt("redo", currentLang),
+                                tint = if (redoStrokes.isNotEmpty()) Color.White else Color(0xFF475569)
+                            )
+                        }
+                        IconButton(onClick = { viewModel.clearCanvas() }) {
+                            Icon(Icons.Filled.Delete, contentDescription = getTxt("clear", currentLang), tint = Color(0xFFEF4444))
+                        }
+                        Button(
+                            onClick = { showSaveDetailsDialog = true },
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFF6366F1),
+                                contentColor = Color.White
+                            ),
+                            shape = RoundedCornerShape(12.dp),
+                            modifier = Modifier.padding(start = 4.dp)
+                        ) {
+                            Text(getTxt("save", currentLang), fontWeight = FontWeight.Bold)
+                        }
                     }
                 }
             }
@@ -1437,35 +2430,53 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                     .fillMaxWidth()
                     .weight(1f)
                     .background(Color.White)
-                    .pointerInput(currentShapeType, currentBrushColor, currentBrushSize, currentIsEraser, activeLayerId, isMoveToolActive, lOffX, lOffY) {
+                    .pointerInput(
+                        currentShapeType,
+                        currentBrushColor,
+                        currentBrushSize,
+                        currentIsEraser,
+                        activeLayerId,
+                        isMoveToolActive,
+                        isHandToolActive,
+                        zoomScale,
+                        panOffset,
+                        lOffX,
+                        lOffY
+                    ) {
                         detectDragGestures(
                             onDragStart = { offset ->
-                                isDraggingActive = true
-                                if (isMoveToolActive) {
-                                    dragStartX = offset.x
-                                    dragStartY = offset.y
+                                if (isHandToolActive) {
+                                    // Panning state
                                 } else {
-                                    val startXRel = offset.x - lOffX
-                                    val startYRel = offset.y - lOffY
-                                    dragStartX = startXRel
-                                    dragStartY = startYRel
-                                    dragCurrentX = startXRel
-                                    dragCurrentY = startYRel
+                                    isDraggingActive = true
+                                    if (isMoveToolActive) {
+                                        dragStartX = offset.x
+                                        dragStartY = offset.y
+                                    } else {
+                                        val startXRel = (offset.x - panOffset.x) / zoomScale - lOffX
+                                        val startYRel = (offset.y - panOffset.y) / zoomScale - lOffY
+                                        dragStartX = startXRel
+                                        dragStartY = startYRel
+                                        dragCurrentX = startXRel
+                                        dragCurrentY = startYRel
 
-                                    if (currentShapeType == ShapeType.FREEHAND) {
-                                        val newP = Path()
-                                        newP.moveTo(startXRel, startYRel)
-                                        activePath = newP
+                                        if (currentShapeType == ShapeType.FREEHAND) {
+                                            val newP = Path()
+                                            newP.moveTo(startXRel, startYRel)
+                                            activePath = newP
+                                        }
                                     }
                                 }
                             },
                             onDrag = { change, dragAmount ->
                                 change.consume()
-                                if (isMoveToolActive) {
-                                    viewModel.updateLayerOffset(activeLayerId, dragAmount.x, dragAmount.y)
+                                if (isHandToolActive) {
+                                    panOffset = panOffset + dragAmount
+                                } else if (isMoveToolActive) {
+                                    viewModel.updateLayerOffset(activeLayerId, dragAmount.x / zoomScale, dragAmount.y / zoomScale)
                                 } else {
-                                    val currXRel = change.position.x - lOffX
-                                    val currYRel = change.position.y - lOffY
+                                    val currXRel = (change.position.x - panOffset.x) / zoomScale - lOffX
+                                    val currYRel = (change.position.y - panOffset.y) / zoomScale - lOffY
                                     dragCurrentX = currXRel
                                     dragCurrentY = currYRel
 
@@ -1481,10 +2492,11 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                             },
                             onDragEnd = {
                                 isDraggingActive = false
-                                if (isMoveToolActive) {
-                                    // Move finished
+                                if (isHandToolActive || isMoveToolActive) {
+                                    // Move/Pan finished
                                 } else {
                                     val currentStyle = viewModel.brushStyle.value
+                                    val currentSymmetry = viewModel.symmetryMode.value
                                     if (currentShapeType == ShapeType.FREEHAND) {
                                         val pathToSave = activePath
                                         if (pathToSave != null) {
@@ -1495,7 +2507,8 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                                     strokeWidth = currentBrushSize,
                                                     isEraser = currentIsEraser,
                                                     layerId = activeLayerId,
-                                                    brushStyle = currentStyle
+                                                    brushStyle = currentStyle,
+                                                    symmetryMode = currentSymmetry
                                                 )
                                             )
                                             redoStrokes.clear()
@@ -1513,7 +2526,8 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                                 strokeWidth = currentBrushSize,
                                                 isEraser = currentIsEraser,
                                                 layerId = activeLayerId,
-                                                brushStyle = currentStyle
+                                                brushStyle = currentStyle,
+                                                symmetryMode = currentSymmetry
                                             )
                                         )
                                         redoStrokes.clear()
@@ -1525,6 +2539,91 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                     .testTag("drawing_canvas")
             ) {
                 Canvas(modifier = Modifier.fillMaxSize()) {
+                    drawContext.canvas.save()
+                    drawContext.canvas.translate(panOffset.x, panOffset.y)
+                    drawContext.canvas.scale(zoomScale, zoomScale)
+
+                    // 1. Draw custom background grid pattern (GRID, DOTS, ISOMETRIC)
+                    val gridStyle = viewModel.canvasGridStyle.value
+                    if (gridStyle != CanvasGridStyle.BLANK) {
+                        val gridColor = Color(0x2894A3B8) // soft slate grid color
+                        val dotRadius = 1.5.dp.toPx()
+                        val spacing = 40.dp.toPx()
+                        
+                        when (gridStyle) {
+                            CanvasGridStyle.GRID -> {
+                                // Draw horizontal lines
+                                var y = 0f
+                                while (y < size.height) {
+                                    drawLine(
+                                        color = gridColor,
+                                        start = Offset(0f, y),
+                                        end = Offset(size.width, y),
+                                        strokeWidth = 1f
+                                    )
+                                    y += spacing
+                                }
+                                // Draw vertical lines
+                                var x = 0f
+                                while (x < size.width) {
+                                    drawLine(
+                                        color = gridColor,
+                                        start = Offset(x, 0f),
+                                        end = Offset(x, size.height),
+                                        strokeWidth = 1f
+                                    )
+                                    x += spacing
+                                }
+                            }
+                            CanvasGridStyle.DOTS -> {
+                                var x = spacing / 2f
+                                while (x < size.width) {
+                                    var y = spacing / 2f
+                                    while (y < size.height) {
+                                        drawCircle(
+                                            color = gridColor,
+                                            radius = dotRadius,
+                                            center = Offset(x, y)
+                                        )
+                                        y += spacing
+                                    }
+                                    x += spacing
+                                }
+                            }
+                            CanvasGridStyle.ISOMETRIC -> {
+                                val hSpacing = spacing * 1.5f
+                                var x = 0f
+                                while (x < size.width) {
+                                    drawLine(
+                                        color = gridColor,
+                                        start = Offset(x, 0f),
+                                        end = Offset(x, size.height),
+                                        strokeWidth = 1f
+                                    )
+                                    x += hSpacing
+                                }
+                                val diagonalSpacing = hSpacing
+                                var y = -size.width
+                                while (y < size.height + size.width) {
+                                    drawLine(
+                                        color = gridColor,
+                                        start = Offset(0f, y),
+                                        end = Offset(size.width, y + size.width * 0.577f),
+                                        strokeWidth = 1f
+                                    )
+                                    drawLine(
+                                        color = gridColor,
+                                        start = Offset(0f, y),
+                                        end = Offset(size.width, y - size.width * 0.577f),
+                                        strokeWidth = 1f
+                                    )
+                                    y += diagonalSpacing
+                                }
+                            }
+                            else -> {}
+                        }
+                    }
+
                     val layersList = viewModel.layers
                     layersList.forEach { layer ->
                         if (layer.isVisible) {
@@ -1536,7 +2635,8 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                 val opMult = layer.opacity
                                 val baseColor = if (action.isEraser) Color.White else action.color
                                 
-                                when (action) {
+                                fun drawActionCore() {
+                                    when (action) {
                                     is DrawingAction.PathAction -> {
                                         val effect = when (action.brushStyle) {
                                             BrushStyle.DASHED -> androidx.compose.ui.graphics.PathEffect.dashPathEffect(floatArrayOf(action.strokeWidth * 2f, action.strokeWidth * 2f), 0f)
@@ -1692,18 +2792,50 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                         }
                                     }
                                 }
+                                }
+                                
+                                drawActionCore()
+                                
+                                val cX = size.width / 2f
+                                val cY = size.height / 2f
+                                if (action.symmetryMode == SymmetryMode.VERTICAL || action.symmetryMode == SymmetryMode.RADIAL) {
+                                    drawContext.canvas.save()
+                                    drawContext.canvas.translate(cX, cY)
+                                    drawContext.canvas.scale(-1f, 1f)
+                                    drawContext.canvas.translate(-cX, -cY)
+                                    drawActionCore()
+                                    drawContext.canvas.restore()
+                                }
+                                if (action.symmetryMode == SymmetryMode.HORIZONTAL || action.symmetryMode == SymmetryMode.RADIAL) {
+                                    drawContext.canvas.save()
+                                    drawContext.canvas.translate(cX, cY)
+                                    drawContext.canvas.scale(1f, -1f)
+                                    drawContext.canvas.translate(-cX, -cY)
+                                    drawActionCore()
+                                    drawContext.canvas.restore()
+                                }
+                                if (action.symmetryMode == SymmetryMode.RADIAL) {
+                                    drawContext.canvas.save()
+                                    drawContext.canvas.translate(cX, cY)
+                                    drawContext.canvas.scale(-1f, -1f)
+                                    drawContext.canvas.translate(-cX, -cY)
+                                    drawActionCore()
+                                    drawContext.canvas.restore()
+                                }
                             }
                             
                             if (isDraggingActive && !isMoveToolActive && activeLayerId == layer.id) {
                                 val activeBrushColor = if (currentIsEraser) Color.White else currentBrushColor
                                 val currentStyle = viewModel.brushStyle.value
+                                val previewSymmetry = viewModel.symmetryMode.value
                                 val previewEffect = when (currentStyle) {
                                     BrushStyle.DASHED -> androidx.compose.ui.graphics.PathEffect.dashPathEffect(floatArrayOf(currentBrushSize * 2f, currentBrushSize * 2f), 0f)
                                     BrushStyle.DOTTED -> androidx.compose.ui.graphics.PathEffect.dashPathEffect(floatArrayOf(currentBrushSize * 0.2f, currentBrushSize * 2f), 0f)
                                     else -> null
                                 }
                                 
-                                if (currentShapeType == ShapeType.FREEHAND) {
+                                fun drawActivePreviewCore() {
+                                    if (currentShapeType == ShapeType.FREEHAND) {
                                     activePath?.let { p ->
                                         when (currentStyle) {
                                             BrushStyle.SOLID, BrushStyle.DASHED, BrushStyle.DOTTED -> {
@@ -1829,14 +2961,73 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                         else -> {}
                                     }
                                 }
+                                }
+                                
+                                drawActivePreviewCore()
+                                
+                                val cX = size.width / 2f
+                                val cY = size.height / 2f
+                                if (previewSymmetry == SymmetryMode.VERTICAL || previewSymmetry == SymmetryMode.RADIAL) {
+                                    drawContext.canvas.save()
+                                    drawContext.canvas.translate(cX, cY)
+                                    drawContext.canvas.scale(-1f, 1f)
+                                    drawContext.canvas.translate(-cX, -cY)
+                                    drawActivePreviewCore()
+                                    drawContext.canvas.restore()
+                                }
+                                if (previewSymmetry == SymmetryMode.HORIZONTAL || previewSymmetry == SymmetryMode.RADIAL) {
+                                    drawContext.canvas.save()
+                                    drawContext.canvas.translate(cX, cY)
+                                    drawContext.canvas.scale(1f, -1f)
+                                    drawContext.canvas.translate(-cX, -cY)
+                                    drawActivePreviewCore()
+                                    drawContext.canvas.restore()
+                                }
+                                if (previewSymmetry == SymmetryMode.RADIAL) {
+                                    drawContext.canvas.save()
+                                    drawContext.canvas.translate(cX, cY)
+                                    drawContext.canvas.scale(-1f, -1f)
+                                    drawContext.canvas.translate(-cX, -cY)
+                                    drawActivePreviewCore()
+                                    drawContext.canvas.restore()
+                                }
                             }
                             
                             drawContext.canvas.restore()
                         }
                     }
+
+                    // 4. Draw Symmetry Axis guideline indicators as overlay
+                    val actSymmetry = viewModel.symmetryMode.value
+                    if (actSymmetry != SymmetryMode.NONE) {
+                        val symLineColor = Color(0x6A6366F1) // Indigo primary with nice premium opacity
+                        val cX = size.width / 2f
+                        val cY = size.height / 2f
+                        val dashEffect = androidx.compose.ui.graphics.PathEffect.dashPathEffect(floatArrayOf(15f, 15f), 0f)
+                        
+                        if (actSymmetry == SymmetryMode.VERTICAL || actSymmetry == SymmetryMode.RADIAL) {
+                            drawLine(
+                                color = symLineColor,
+                                start = Offset(cX, 0f),
+                                end = Offset(cX, size.height),
+                                strokeWidth = 2.dp.toPx(),
+                                pathEffect = dashEffect
+                            )
+                        }
+                        if (actSymmetry == SymmetryMode.HORIZONTAL || actSymmetry == SymmetryMode.RADIAL) {
+                            drawLine(
+                                color = symLineColor,
+                                start = Offset(0f, cY),
+                                end = Offset(size.width, cY),
+                                strokeWidth = 2.dp.toPx(),
+                                pathEffect = dashEffect
+                            )
+                        }
+                    }
+                    drawContext.canvas.restore()
                 }
 
-                // 🚀 شريط الأدوات العائم الذكي والحديث والمميز (Floating Glassmorphic Toolbar)
+                // Interactive Floating Toolbar Box overlay
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -1866,13 +3057,13 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        // 1. قلم رصاص (Pencil)
+                        // 1. قلم رصاص (Pencil / Solid)
                         val isPencilActive = !currentIsEraser && 
                                 currentShapeType == ShapeType.FREEHAND && 
                                 viewModel.brushStyle.value == BrushStyle.SOLID
                         FloatingToolButton(
                             icon = Icons.Filled.Create,
-                            label = "قلم رصاص",
+                            label = if (currentLang == "ar") "قلم رصاص" else "Pencil",
                             isActive = isPencilActive,
                             onClick = {
                                 viewModel.brushShapeType.value = ShapeType.FREEHAND
@@ -1887,7 +3078,7 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                 (viewModel.brushStyle.value == BrushStyle.AIRBRUSH || viewModel.brushStyle.value == BrushStyle.NEON)
                         FloatingToolButton(
                             icon = Icons.Filled.Brush,
-                            label = "فرشاة رسم",
+                            label = if (currentLang == "ar") "فرشاة رسم" else "Brush",
                             isActive = isBrushActive,
                             onClick = {
                                 viewModel.brushShapeType.value = ShapeType.FREEHAND
@@ -1902,14 +3093,14 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                         val isEraserActive = currentIsEraser
                         FloatingToolButton(
                             icon = Icons.Filled.LayersClear,
-                            label = "ممحاة دقيقة",
+                            label = if (currentLang == "ar") "ممحاة دقيقة" else "Precision Eraser",
                             isActive = isEraserActive,
                             onClick = {
                                 viewModel.brushIsEraser.value = true
                             }
                         )
 
-                        // فاصل مرئي عمودي أنيق
+                        // Visual separator
                         Box(
                             modifier = Modifier
                                 .width(1.dp)
@@ -1921,7 +3112,7 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                         val isRectActive = !currentIsEraser && currentShapeType == ShapeType.RECTANGLE
                         FloatingToolButton(
                             icon = Icons.Outlined.CropSquare,
-                            label = "مستطيل",
+                            label = if (currentLang == "ar") "مستطيل" else "Rectangle",
                             isActive = isRectActive,
                             onClick = {
                                 viewModel.brushShapeType.value = ShapeType.RECTANGLE
@@ -1933,13 +3124,205 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                         val isCircleActive = !currentIsEraser && currentShapeType == ShapeType.CIRCLE
                         FloatingToolButton(
                             icon = Icons.Outlined.Circle,
-                            label = "دائرة",
+                            label = if (currentLang == "ar") "دائرة" else "Circle",
                             isActive = isCircleActive,
                             onClick = {
                                 viewModel.brushShapeType.value = ShapeType.CIRCLE
                                 viewModel.brushIsEraser.value = false
                             }
                         )
+
+                        // Visual separator
+                        Box(
+                            modifier = Modifier
+                                .width(1.dp)
+                                .height(22.dp)
+                                .background(Color(0xFF333333))
+                        )
+
+                        // 6. تماثل ذكي
+                        var showSymmetryMenu by remember { mutableStateOf(false) }
+                        val activeSymmetry = viewModel.symmetryMode.value
+                        Box {
+                            FloatingToolButton(
+                                icon = Icons.Filled.Flip,
+                                label = if (currentLang == "ar") "تماثل" else "Symmetry",
+                                isActive = activeSymmetry != SymmetryMode.NONE,
+                                onClick = { showSymmetryMenu = true }
+                            )
+                            DropdownMenu(
+                                expanded = showSymmetryMenu,
+                                onDismissRequest = { showSymmetryMenu = false },
+                                modifier = Modifier
+                                    .background(Color(0xE8121214))
+                                    .border(1.dp, Color(0xFF334155), RoundedCornerShape(12.dp))
+                            ) {
+                                DropdownMenuItem(
+                                    text = { Text(if (currentLang == "ar") "بدون تماثل" else "No Symmetry", color = if (activeSymmetry == SymmetryMode.NONE) Color(0xFF6366F1) else Color.White) },
+                                    onClick = {
+                                        viewModel.symmetryMode.value = SymmetryMode.NONE
+                                        showSymmetryMenu = false
+                                    }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(if (currentLang == "ar") "تماثل عمودي" else "Vertical Symmetry", color = if (activeSymmetry == SymmetryMode.VERTICAL) Color(0xFF6366F1) else Color.White) },
+                                    onClick = {
+                                        viewModel.symmetryMode.value = SymmetryMode.VERTICAL
+                                        showSymmetryMenu = false
+                                    }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(if (currentLang == "ar") "تماثل أفقي" else "Horizontal Symmetry", color = if (activeSymmetry == SymmetryMode.HORIZONTAL) Color(0xFF6366F1) else Color.White) },
+                                    onClick = {
+                                        viewModel.symmetryMode.value = SymmetryMode.HORIZONTAL
+                                        showSymmetryMenu = false
+                                    }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(if (currentLang == "ar") "تماثل شعاعي" else "Radial Symmetry", color = if (activeSymmetry == SymmetryMode.RADIAL) Color(0xFF6366F1) else Color.White) },
+                                    onClick = {
+                                        viewModel.symmetryMode.value = SymmetryMode.RADIAL
+                                        showSymmetryMenu = false
+                                    }
+                                )
+                            }
+                        }
+
+                        // 7. شبكة فنية
+                        var showGridMenu by remember { mutableStateOf(false) }
+                        val activeGrid = viewModel.canvasGridStyle.value
+                        Box {
+                            FloatingToolButton(
+                                icon = Icons.Filled.GridOn,
+                                label = if (currentLang == "ar") "الشبكة" else "Grid",
+                                isActive = activeGrid != CanvasGridStyle.BLANK,
+                                onClick = { showGridMenu = true }
+                            )
+                            DropdownMenu(
+                                expanded = showGridMenu,
+                                onDismissRequest = { showGridMenu = false },
+                                modifier = Modifier
+                                    .background(Color(0xE8121214))
+                                    .border(1.dp, Color(0xFF334155), RoundedCornerShape(12.dp))
+                            ) {
+                                DropdownMenuItem(
+                                    text = { Text(if (currentLang == "ar") "لوحة فارغة" else "Blank Board", color = if (activeGrid == CanvasGridStyle.BLANK) Color(0xFF6366F1) else Color.White) },
+                                    onClick = {
+                                        viewModel.canvasGridStyle.value = CanvasGridStyle.BLANK
+                                        showGridMenu = false
+                                    }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(if (currentLang == "ar") "شبكة مربعات" else "Square Grid", color = if (activeGrid == CanvasGridStyle.GRID) Color(0xFF6366F1) else Color.White) },
+                                    onClick = {
+                                        viewModel.canvasGridStyle.value = CanvasGridStyle.GRID
+                                        showGridMenu = false
+                                    }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(if (currentLang == "ar") "تنقيط هندسي" else "Dotted Grid", color = if (activeGrid == CanvasGridStyle.DOTS) Color(0xFF6366F1) else Color.White) },
+                                    onClick = {
+                                        viewModel.canvasGridStyle.value = CanvasGridStyle.DOTS
+                                        showGridMenu = false
+                                    }
+                                )
+                                DropdownMenuItem(
+                                    text = { Text(if (currentLang == "ar") "أيزوميتريك" else "Isometric Geometric", color = if (activeGrid == CanvasGridStyle.ISOMETRIC) Color(0xFF6366F1) else Color.White) },
+                                    onClick = {
+                                        viewModel.canvasGridStyle.value = CanvasGridStyle.ISOMETRIC
+                                        showGridMenu = false
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+
+                // Floating Zoom & View Controls Overlay Column (Right-Centered)
+                Column(
+                    modifier = Modifier
+                        .padding(16.dp)
+                        .padding(top = 80.dp) // clear of the floating horizontal toolbar
+                        .align(Alignment.CenterEnd)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Color(0xE8121214))
+                        .border(1.dp, Color(0xFF333333), RoundedCornerShape(16.dp))
+                        .padding(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    // Zoom In button
+                    IconButton(
+                        onClick = { zoomScale = minOf(6f, zoomScale * 1.2f) },
+                        modifier = Modifier
+                            .size(36.dp)
+                            .background(Color(0xFF222222), CircleShape)
+                    ) {
+                        Icon(Icons.Filled.ZoomIn, contentDescription = "Zoom In", tint = Color.White)
+                    }
+
+                    // Zoom indication text
+                    Text(
+                        text = "${(zoomScale * 100).toInt()}%",
+                        color = Color.White,
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+
+                    // Zoom Out button
+                    IconButton(
+                        onClick = { zoomScale = maxOf(0.4f, zoomScale / 1.2f) },
+                        modifier = Modifier
+                            .size(36.dp)
+                            .background(Color(0xFF222222), CircleShape)
+                    ) {
+                        Icon(Icons.Filled.ZoomOut, contentDescription = "Zoom Out", tint = Color.White)
+                    }
+
+                    Box(modifier = Modifier.width(20.dp).height(1.dp).background(Color(0xFF333333)))
+
+                    // Hand Tool (Pan/Draw Toggle)
+                    IconButton(
+                        onClick = { isHandToolActive = !isHandToolActive },
+                        modifier = Modifier
+                            .size(36.dp)
+                            .background(if (isHandToolActive) Color(0xFF6366F1) else Color(0xFF222222), CircleShape)
+                    ) {
+                        Icon(
+                            imageVector = if (isHandToolActive) Icons.Filled.PanTool else Icons.Filled.Gesture,
+                            contentDescription = "Toggle Hand Pan",
+                            tint = Color.White
+                        )
+                    }
+
+                    // Reset Pan Zoom view
+                    IconButton(
+                        onClick = { 
+                            zoomScale = 1f
+                            panOffset = Offset.Zero
+                            isHandToolActive = false
+                        },
+                        modifier = Modifier
+                            .size(36.dp)
+                            .background(Color(0xFF222222), CircleShape)
+                    ) {
+                        Icon(Icons.Filled.Refresh, contentDescription = "Reset View", tint = Color.White)
+                    }
+
+                    // Toggle All UI / Restore bottom config & top bar
+                    if (!isTopBarVisible || !isBottomConfigVisible) {
+                        Box(modifier = Modifier.width(20.dp).height(1.dp).background(Color(0xFF333333)))
+                        IconButton(
+                            onClick = { 
+                                isTopBarVisible = true
+                                isBottomConfigVisible = true
+                            },
+                            modifier = Modifier
+                                .size(36.dp)
+                                .background(Color(0xFF10B981), CircleShape)
+                        ) {
+                            Icon(Icons.Filled.Visibility, contentDescription = "Show Menus", tint = Color.White)
+                        }
                     }
                 }
             }
@@ -1958,29 +3341,29 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
             onDismissRequest = {
                 if (!isFinalSavingLoading) showSaveDetailsDialog = false
             },
-            title = { Text("حفظ الرسمة 🎨", fontWeight = FontWeight.Bold) },
+            title = { Text(if (currentLang == "ar") "حفظ الرسمة" else "Save Drawing", fontWeight = FontWeight.Bold) },
             text = {
                 Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                    Text("أدخل معلومات لوحتك لتسجيلها وحفظها في المعرض والكل يعرفها!")
+                    Text(if (currentLang == "ar") "أدخل معلومات لوحتك لتسجيلها وحفظها في مرسمك الخاص!" else "Enter your drawing details to record and save it to your studio!")
                     
                     OutlinedTextField(
                         value = saveTitleState,
                         onValueChange = { saveTitleState = it },
-                        label = { Text("عنوان الرسمة *") },
+                        label = { Text(if (currentLang == "ar") "عنوان الرسمة *" else "Drawing Title *") },
                         singleLine = true,
-                        placeholder = { Text("مثال: منظر الغروب الهادئ") }
+                        placeholder = { Text(if (currentLang == "ar") "مثال: منظر الغروب الهادئ" else "e.g., Calm Sunset Scene") }
                     )
 
                     OutlinedTextField(
                         value = saveDescState,
                         onValueChange = { saveDescState = it },
-                        label = { Text("وصف الرسمة") },
+                        label = { Text(if (currentLang == "ar") "وصف الرسمة" else "Description") },
                         maxLines = 3,
-                        placeholder = { Text("اكتب مشاعرك وما تجسده هذه اللوحة...") }
+                        placeholder = { Text(if (currentLang == "ar") "اكتب مشاعرك وما تجسده هذه اللوحة..." else "What does this drawing express...") }
                     )
 
                     // Public vs Private
-                    Text("خصوصية اللوحة:", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                    Text(if (currentLang == "ar") "خصوصية اللوحة:" else "Drawing Privacy:", fontWeight = FontWeight.Bold, fontSize = 12.sp)
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -2003,8 +3386,8 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Icon(Icons.Filled.Public, contentDescription = null)
-                                Text("رسمة عامة", fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                                Text("يصدر لها كود ID ويبحث عنها الجميع", fontSize = 9.sp, textAlign = TextAlign.Center)
+                                Text(if (currentLang == "ar") "رسمة عامة" else "Public", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                                Text(if (currentLang == "ar") "يصدر لها كود ID ويبحث عنها الجميع" else "Discoverable with a unique share code", fontSize = 9.sp, textAlign = TextAlign.Center)
                             }
                         }
 
@@ -2026,8 +3409,8 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                                 horizontalAlignment = Alignment.CenterHorizontally
                             ) {
                                 Icon(Icons.Filled.Lock, contentDescription = null)
-                                Text("رسمة خاصة", fontWeight = FontWeight.Bold, fontSize = 12.sp)
-                                Text("تظهر لك وحدك في مرسمك الخاص", fontSize = 9.sp, textAlign = TextAlign.Center)
+                                Text(if (currentLang == "ar") "رسمة خاصة" else "Private", fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                                Text(if (currentLang == "ar") "تظهر لك وحدك في مرسمك الخاص" else "Only visible in your personal studio", fontSize = 9.sp, textAlign = TextAlign.Center)
                             }
                         }
                     }
@@ -2054,7 +3437,7 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                     if (isFinalSavingLoading) {
                         CircularProgressIndicator(modifier = Modifier.size(20.dp), color = Color.White)
                     } else {
-                        Text("تم، حفظ ونشر")
+                        Text(if (currentLang == "ar") "تم، حفظ الرسم" else "Done, Save")
                     }
                 }
             },
@@ -2063,7 +3446,7 @@ fun CanvasScreen(viewModel: DrawingViewModel) {
                     onClick = { showSaveDetailsDialog = false },
                     enabled = !isFinalSavingLoading
                 ) {
-                    Text("إلغاء")
+                    Text(if (currentLang == "ar") "إلغاء" else "Cancel")
                 }
             }
         )
@@ -2133,6 +3516,17 @@ fun DrawingDetailScreen(viewModel: DrawingViewModel, drawingId: Int) {
                 },
                 actions = {
                     drawing?.let { draw ->
+                        IconButton(onClick = {
+                            viewModel.downloadDrawingToDevice(draw) { success ->
+                                if (success) {
+                                    Toast.makeText(context, "تم حفظ اللوحة الفنية بنجاح في معرض الصور! 🌠🎨", Toast.LENGTH_LONG).show()
+                                } else {
+                                    Toast.makeText(context, "فشل حفظ اللوحة الفنية. تأكد من الأذونات.", Toast.LENGTH_LONG).show()
+                                }
+                            }
+                        }) {
+                            Icon(Icons.Filled.Download, contentDescription = "تحميل الرسمة للجهاز", tint = Color.White)
+                        }
                         IconButton(onClick = { viewModel.shareDrawing(draw) }) {
                             Icon(Icons.Filled.Share, contentDescription = "مشاركة الرسمة", tint = Color.White)
                         }

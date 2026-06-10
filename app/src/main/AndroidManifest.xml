@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="32" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -20,6 +24,18 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <!-- Deep linking for shared drawings in firebase -->
+            <intent-filter android:label="View Paint">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="rasmatak" android:host="view" />
+                <data android:scheme="http" android:host="rasmatak.web.app" android:pathPrefix="/view" />
+                <data android:scheme="https" android:host="rasmatak.web.app" android:pathPrefix="/view" />
+                <data android:scheme="http" android:host="rasmatak-default-rtdb.firebaseio.com" />
+                <data android:scheme="https" android:host="rasmatak-default-rtdb.firebaseio.com" />
             </intent-filter>
         </activity>
 

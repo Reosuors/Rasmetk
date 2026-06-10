@@ -51,6 +51,16 @@ enum class BrushStyle {
     SOLID, DASHED, DOTTED, AIRBRUSH, NEON
 }
 
+// Symmetry modes for artist patterns
+enum class SymmetryMode {
+    NONE, HORIZONTAL, VERTICAL, RADIAL
+}
+
+// Canvas grid layout styles
+enum class CanvasGridStyle {
+    BLANK, GRID, DOTS, ISOMETRIC
+}
+
 // Layer data state
 data class CanvasLayer(
     val id: String = java.util.UUID.randomUUID().toString(),
@@ -68,6 +78,7 @@ sealed interface DrawingAction {
     val color: Color
     val strokeWidth: Float
     val isEraser: Boolean
+    val symmetryMode: SymmetryMode
 
     data class PathAction(
         val path: Path,
@@ -75,7 +86,8 @@ sealed interface DrawingAction {
         override val strokeWidth: Float,
         override val isEraser: Boolean = false,
         override val layerId: String = "default",
-        override val brushStyle: BrushStyle = BrushStyle.SOLID
+        override val brushStyle: BrushStyle = BrushStyle.SOLID,
+        override val symmetryMode: SymmetryMode = SymmetryMode.NONE
     ) : DrawingAction
 
     data class ShapeAction(
@@ -88,7 +100,8 @@ sealed interface DrawingAction {
         override val strokeWidth: Float,
         override val isEraser: Boolean = false,
         override val layerId: String = "default",
-        override val brushStyle: BrushStyle = BrushStyle.SOLID
+        override val brushStyle: BrushStyle = BrushStyle.SOLID,
+        override val symmetryMode: SymmetryMode = SymmetryMode.NONE
     ) : DrawingAction
 }
 
@@ -117,12 +130,132 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
     private val _username = MutableStateFlow(sharedPreferences.getString("username", "رسام مبدع") ?: "رسام مبدع")
     val username: StateFlow<String> = _username.asStateFlow()
 
+    // Firebase Authentication & Account variables
+    private val _firebaseEmail = MutableStateFlow(sharedPreferences.getString("firebase_email", "") ?: "")
+    val firebaseEmail: StateFlow<String> = _firebaseEmail.asStateFlow()
+
+    private val _isFirebaseLoggedIn = MutableStateFlow(sharedPreferences.getBoolean("firebase_logged_in", false))
+    val isFirebaseLoggedIn: StateFlow<Boolean> = _isFirebaseLoggedIn.asStateFlow()
+
+    private val _firebasePrivateDrawings = MutableStateFlow<List<com.example.data.FirebaseDrawing>>(emptyList())
+    val firebasePrivateDrawings: StateFlow<List<com.example.data.FirebaseDrawing>> = _firebasePrivateDrawings.asStateFlow()
+
+    private val _firebasePrivateLoading = MutableStateFlow(false)
+    val firebasePrivateLoading: StateFlow<Boolean> = _firebasePrivateLoading.asStateFlow()
+
+    private val _firebasePrivateLoadError = MutableStateFlow<String?>(null)
+    val firebasePrivateLoadError: StateFlow<String?> = _firebasePrivateLoadError.asStateFlow()
+
+    private val _firebaseAuthLoading = MutableStateFlow(false)
+    val firebaseAuthLoading: StateFlow<Boolean> = _firebaseAuthLoading.asStateFlow()
+
+    private val _firebaseAuthError = MutableStateFlow<String?>(null)
+    val firebaseAuthError: StateFlow<String?> = _firebaseAuthError.asStateFlow()
+
+    fun clearAuthError() {
+        _firebaseAuthError.value = null
+    }
+
+    fun login(email: String, pass: String, onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            _firebaseAuthLoading.value = true
+            _firebaseAuthError.value = null
+            com.example.data.FirebaseSyncManager.loginWithFirebase(email, pass).fold(
+                onSuccess = { (usr, mail) ->
+                    _username.value = usr
+                    sharedPreferences.edit()
+                        .putString("username", usr)
+                        .putString("firebase_email", mail)
+                        .putBoolean("firebase_logged_in", true)
+                        .apply()
+                    _firebaseEmail.value = mail
+                    _isFirebaseLoggedIn.value = true
+                    _firebaseAuthLoading.value = false
+                    syncPrivateGallery()
+                    onSuccess()
+                },
+                onFailure = { err ->
+                    _firebaseAuthError.value = err.message ?: "خطأ في تسجيل الدخول"
+                    _firebaseAuthLoading.value = false
+                }
+            )
+        }
+    }
+
+    fun signUp(email: String, usr: String, pass: String, onSuccess: () -> Unit) {
+        viewModelScope.launch {
+            _firebaseAuthLoading.value = true
+            _firebaseAuthError.value = null
+            com.example.data.FirebaseSyncManager.signUpWithFirebase(email, usr, pass).fold(
+                onSuccess = { finalizedUser ->
+                    _username.value = finalizedUser
+                    sharedPreferences.edit()
+                        .putString("username", finalizedUser)
+                        .putString("firebase_email", email.trim())
+                        .putBoolean("firebase_logged_in", true)
+                        .apply()
+                    _firebaseEmail.value = email.trim()
+                    _isFirebaseLoggedIn.value = true
+                    _firebaseAuthLoading.value = false
+                    syncPrivateGallery()
+                    onSuccess()
+                },
+                onFailure = { err ->
+                    _firebaseAuthError.value = err.message ?: "خطأ في التسجيل"
+                    _firebaseAuthLoading.value = false
+                }
+            )
+        }
+    }
+
+    fun signOut() {
+        sharedPreferences.edit()
+            .putString("firebase_email", "")
+            .putBoolean("firebase_logged_in", false)
+            .apply()
+        _firebaseEmail.value = ""
+        _isFirebaseLoggedIn.value = false
+        _firebasePrivateDrawings.value = emptyList()
+    }
+
+    fun syncPrivateGallery() {
+        val currEmail = _firebaseEmail.value
+        if (currEmail.isBlank() || !_isFirebaseLoggedIn.value) return
+        viewModelScope.launch {
+            _firebasePrivateLoading.value = true
+            _firebasePrivateLoadError.value = null
+            com.example.data.FirebaseSyncManager.fetchPrivateDrawings(currEmail)
+                .onSuccess { list ->
+                    _firebasePrivateDrawings.value = list.sortedByDescending { it.timestamp }
+                    _firebasePrivateLoading.value = false
+                }
+                .onFailure { err ->
+                    _firebasePrivateLoadError.value = err.message ?: "فشل تحديث المعرض"
+                    _firebasePrivateLoading.value = false
+                }
+        }
+    }
+
+    // App language: "ar" or "en"
+    private val _appLanguage = MutableStateFlow(sharedPreferences.getString("app_language", "ar") ?: "ar")
+    val appLanguage: StateFlow<String> = _appLanguage.asStateFlow()
+
+    fun setAppLanguage(lang: String) {
+        sharedPreferences.edit().putString("app_language", lang).apply()
+        _appLanguage.value = lang
+    }
+
+    // Custom Canvas creation info
+    val currentCanvasWidth = mutableStateOf(1000)
+    val currentCanvasHeight = mutableStateOf(1000)
+    val currentDrawingTitle = mutableStateOf("")
+
     // Searching
     private val _searchQuery = MutableStateFlow("")
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
 
     // Public list or Private list in primary drawings gallery
-    private val _isShowingPublicTabInGallery = MutableStateFlow(true)
+    private val _isShowingPublicTabInGallery = MutableStateFlow(false)
     val isShowingPublicTabInGallery: StateFlow<Boolean> = _isShowingPublicTabInGallery.asStateFlow()
 
     // State of drawings list
@@ -135,13 +268,8 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
         _searchQuery,
         _isShowingPublicTabInGallery
     ) { baseList, query, isPublicTab ->
-        var list = baseList
-        // Filter by tab
-        list = if (isPublicTab) {
-            list.filter { it.isPublic }
-        } else {
-            list.filter { it.isLocalOriginal }
-        }
+        // Keep only personal drawings (projects of the user only)
+        var list = baseList.filter { it.isLocalOriginal }
         // Filter by Query (code or title or author)
         if (query.isNotEmpty()) {
             list = list.filter {
@@ -213,6 +341,8 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
     val brushShapeType = mutableStateOf(ShapeType.FREEHAND)
     val brushStyle = mutableStateOf(BrushStyle.SOLID)
     val brushIsEraser = mutableStateOf(false)
+    val symmetryMode = mutableStateOf(SymmetryMode.NONE)
+    val canvasGridStyle = mutableStateOf(CanvasGridStyle.BLANK)
 
     // Layers Support
     val layers = mutableStateListOf<CanvasLayer>()
@@ -235,6 +365,10 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
         // Initialize default background layer
         if (layers.isEmpty()) {
             layers.add(CanvasLayer(id = "default", name = "الطبقة الأساسية"))
+        }
+        // Sync cloud private gallery if logged in
+        if (_isFirebaseLoggedIn.value && _firebaseEmail.value.isNotBlank()) {
+            syncPrivateGallery()
         }
     }
 
@@ -547,8 +681,8 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
 
         viewModelScope.launch {
             // Re-render strokes to offline Bitmap
-            val width = 1080
-            val height = 1350 // High visual ratio
+            val width = currentCanvasWidth.value.coerceIn(100, 4000)
+            val height = currentCanvasHeight.value.coerceIn(100, 4000)
             val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
             val canvas = android.graphics.Canvas(bitmap)
 
@@ -606,93 +740,120 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
                         }
                     }
                     
-                    // Draw path
-                    if (action is DrawingAction.PathAction) {
-                        try {
-                            val androidPath = action.path.asAndroidPath()
+                    fun drawCore() {
+                        if (action is DrawingAction.PathAction) {
+                            try {
+                                val androidPath = action.path.asAndroidPath()
+                                
+                                when (action.brushStyle) {
+                                    BrushStyle.SOLID, BrushStyle.DASHED, BrushStyle.DOTTED -> {
+                                        configurePaintStyleAndEffects(paint, action.brushStyle, action.strokeWidth)
+                                        paint.color = getStrokeColor(action.color, action.isEraser, layer.opacity)
+                                        canvas.drawPath(androidPath, paint)
+                                    }
+                                    BrushStyle.AIRBRUSH -> {
+                                        // Layer 1: Core
+                                        configurePaintStyleAndEffects(paint, BrushStyle.SOLID, action.strokeWidth)
+                                        paint.color = getStrokeColor(action.color, action.isEraser, layer.opacity * 0.4f)
+                                        canvas.drawPath(androidPath, paint)
+                                        
+                                        // Layer 2: Mid
+                                        configurePaintStyleAndEffects(paint, BrushStyle.SOLID, action.strokeWidth * 1.5f)
+                                        paint.color = getStrokeColor(action.color, action.isEraser, layer.opacity * 0.18f)
+                                        canvas.drawPath(androidPath, paint)
+                                        
+                                        // Layer 3: Soft Wide
+                                        configurePaintStyleAndEffects(paint, BrushStyle.SOLID, action.strokeWidth * 2.5f)
+                                        paint.color = getStrokeColor(action.color, action.isEraser, layer.opacity * 0.08f)
+                                        canvas.drawPath(androidPath, paint)
+                                    }
+                                    BrushStyle.NEON -> {
+                                        // Glow behind
+                                        configurePaintStyleAndEffects(paint, BrushStyle.SOLID, action.strokeWidth * 2.2f)
+                                        paint.color = getStrokeColor(action.color, action.isEraser, layer.opacity * 0.35f)
+                                        canvas.drawPath(androidPath, paint)
+                                        
+                                        // White core inside
+                                        configurePaintStyleAndEffects(paint, BrushStyle.SOLID, action.strokeWidth * 0.6f)
+                                        paint.color = if (action.isEraser) android.graphics.Color.WHITE else android.graphics.Color.WHITE
+                                        canvas.drawPath(androidPath, paint)
+                                    }
+                                }
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        } else if (action is DrawingAction.ShapeAction) {
+                            val sx = action.startX
+                            val sy = action.startY
+                            val ex = action.endX
+                            val ey = action.endY
                             
-                            when (action.brushStyle) {
-                                BrushStyle.SOLID, BrushStyle.DASHED, BrushStyle.DOTTED -> {
-                                    configurePaintStyleAndEffects(paint, action.brushStyle, action.strokeWidth)
-                                    paint.color = getStrokeColor(action.color, action.isEraser, layer.opacity)
-                                    canvas.drawPath(androidPath, paint)
+                            configurePaintStyleAndEffects(paint, action.brushStyle, action.strokeWidth)
+                            paint.color = getStrokeColor(action.color, action.isEraser, layer.opacity)
+                            
+                            // Draw shape details
+                            when (action.shapeType) {
+                                ShapeType.LINE -> canvas.drawLine(sx, sy, ex, ey, paint)
+                                ShapeType.RECTANGLE -> {
+                                    val left = minOf(sx, ex)
+                                    val top = minOf(sy, ey)
+                                    val right = maxOf(sx, ex)
+                                    val bottom = maxOf(sy, ey)
+                                    canvas.drawRect(left, top, right, bottom, paint)
                                 }
-                                BrushStyle.AIRBRUSH -> {
-                                    // Layer 1: Core
-                                    configurePaintStyleAndEffects(paint, BrushStyle.SOLID, action.strokeWidth)
-                                    paint.color = getStrokeColor(action.color, action.isEraser, layer.opacity * 0.4f)
-                                    canvas.drawPath(androidPath, paint)
-                                    
-                                    // Layer 2: Mid
-                                    configurePaintStyleAndEffects(paint, BrushStyle.SOLID, action.strokeWidth * 1.5f)
-                                    paint.color = getStrokeColor(action.color, action.isEraser, layer.opacity * 0.18f)
-                                    canvas.drawPath(androidPath, paint)
-                                    
-                                    // Layer 3: Soft Wide
-                                    configurePaintStyleAndEffects(paint, BrushStyle.SOLID, action.strokeWidth * 2.5f)
-                                    paint.color = getStrokeColor(action.color, action.isEraser, layer.opacity * 0.08f)
-                                    canvas.drawPath(androidPath, paint)
+                                ShapeType.CIRCLE -> {
+                                    val dx = ex - sx
+                                    val dy = ey - sy
+                                    val radius = Math.sqrt((dx * dx + dy * dy).toDouble()).toFloat()
+                                    canvas.drawCircle(sx, sy, radius, paint)
                                 }
-                                BrushStyle.NEON -> {
-                                    // Glow behind
-                                    configurePaintStyleAndEffects(paint, BrushStyle.SOLID, action.strokeWidth * 2.2f)
-                                    paint.color = getStrokeColor(action.color, action.isEraser, layer.opacity * 0.35f)
-                                    canvas.drawPath(androidPath, paint)
-                                    
-                                    // White core inside
-                                    configurePaintStyleAndEffects(paint, BrushStyle.SOLID, action.strokeWidth * 0.6f)
-                                    paint.color = if (action.isEraser) android.graphics.Color.WHITE else android.graphics.Color.WHITE
-                                    canvas.drawPath(androidPath, paint)
+                                ShapeType.ARROW -> {
+                                    canvas.drawLine(sx, sy, ex, ey, paint)
+                                    paint.style = Paint.Style.FILL
+                                    val angle = Math.atan2((ey - sy).toDouble(), (ex - sx).toDouble())
+                                    val arrowSize = 25f
+                                    val headPath = AndroidPath()
+                                    headPath.moveTo(ex, ey)
+                                    headPath.lineTo(
+                                        (ex - arrowSize * Math.cos(angle - Math.PI / 6)).toFloat(),
+                                        (ey - arrowSize * Math.sin(angle - Math.PI / 6)).toFloat()
+                                    )
+                                    headPath.lineTo(
+                                        (ex - arrowSize * Math.cos(angle + Math.PI / 6)).toFloat(),
+                                        (ey - arrowSize * Math.sin(angle + Math.PI / 6)).toFloat()
+                                    )
+                                    headPath.close()
+                                    canvas.drawPath(headPath, paint)
                                 }
+                                else -> {}
                             }
-                        } catch (e: Exception) {
-                            e.printStackTrace()
                         }
-                    } else if (action is DrawingAction.ShapeAction) {
-                        val sx = action.startX
-                        val sy = action.startY
-                        val ex = action.endX
-                        val ey = action.endY
-                        
-                        configurePaintStyleAndEffects(paint, action.brushStyle, action.strokeWidth)
-                        paint.color = getStrokeColor(action.color, action.isEraser, layer.opacity)
-                        
-                        // Draw shape details
-                        when (action.shapeType) {
-                            ShapeType.LINE -> canvas.drawLine(sx, sy, ex, ey, paint)
-                            ShapeType.RECTANGLE -> {
-                                val left = minOf(sx, ex)
-                                val top = minOf(sy, ey)
-                                val right = maxOf(sx, ex)
-                                val bottom = maxOf(sy, ey)
-                                canvas.drawRect(left, top, right, bottom, paint)
-                            }
-                            ShapeType.CIRCLE -> {
-                                val dx = ex - sx
-                                val dy = ey - sy
-                                val radius = Math.sqrt((dx * dx + dy * dy).toDouble()).toFloat()
-                                canvas.drawCircle(sx, sy, radius, paint)
-                            }
-                            ShapeType.ARROW -> {
-                                canvas.drawLine(sx, sy, ex, ey, paint)
-                                paint.style = Paint.Style.FILL
-                                val angle = Math.atan2((ey - sy).toDouble(), (ex - sx).toDouble())
-                                val arrowSize = 25f
-                                val headPath = AndroidPath()
-                                headPath.moveTo(ex, ey)
-                                headPath.lineTo(
-                                    (ex - arrowSize * Math.cos(angle - Math.PI / 6)).toFloat(),
-                                    (ey - arrowSize * Math.sin(angle - Math.PI / 6)).toFloat()
-                                )
-                                headPath.lineTo(
-                                    (ex - arrowSize * Math.cos(angle + Math.PI / 6)).toFloat(),
-                                    (ey - arrowSize * Math.sin(angle + Math.PI / 6)).toFloat()
-                                )
-                                headPath.close()
-                                canvas.drawPath(headPath, paint)
-                            }
-                            else -> {}
-                        }
+                    }
+
+                    // 1. Draw Primary original
+                    drawCore()
+
+                    // 2. Mirror symmetrically under matching modes
+                    val cX = 1080f / 2f
+                    val cY = 1350f / 2f
+
+                    if (action.symmetryMode == SymmetryMode.VERTICAL || action.symmetryMode == SymmetryMode.RADIAL) {
+                        canvas.save()
+                        canvas.scale(-1f, 1f, cX, cY)
+                        drawCore()
+                        canvas.restore()
+                    }
+                    if (action.symmetryMode == SymmetryMode.HORIZONTAL || action.symmetryMode == SymmetryMode.RADIAL) {
+                        canvas.save()
+                        canvas.scale(1f, -1f, cX, cY)
+                        drawCore()
+                        canvas.restore()
+                    }
+                    if (action.symmetryMode == SymmetryMode.RADIAL) {
+                        canvas.save()
+                        canvas.scale(-1f, -1f, cX, cY)
+                        drawCore()
+                        canvas.restore()
                     }
                 }
                 
@@ -734,6 +895,28 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
             )
 
             val newDbId = repository.insertDrawing(entity).toInt()
+
+            // If Firebase is logged in, upload to their private gallery
+            if (_isFirebaseLoggedIn.value && _firebaseEmail.value.isNotBlank()) {
+                try {
+                    val base64 = com.example.data.FirebaseSyncManager.encodeBitmapToBase64(bitmap)
+                    com.example.data.FirebaseSyncManager.saveToPrivateCloudGallery(
+                        email = _firebaseEmail.value,
+                        drawing = com.example.data.FirebaseDrawing(
+                            drawingIdString = uniqueIdString,
+                            title = validatedTitle,
+                            description = validatedDesc,
+                            authorName = _username.value,
+                            imageBase64 = base64,
+                            timestamp = System.currentTimeMillis(),
+                            isPublic = false
+                        )
+                    )
+                    syncPrivateGallery()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
             
             // Clear Canvas
             clearCanvas()
@@ -745,19 +928,186 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
     }
 
     /**
-     * Share drawing through system share sheets.
+     * Share drawing through system share sheets and dynamically publish to Firebase for links.
      */
-    fun shareDrawing(drawing: DrawingEntity) {
+    fun shareDrawing(drawing: DrawingEntity, onPublishDone: (String) -> Unit = {}) {
         viewModelScope.launch {
             val file = File(drawing.imagePath)
             if (file.exists()) {
-                val authority = "${context.packageName}.fileprovider"
+                val bmp = android.graphics.BitmapFactory.decodeFile(drawing.imagePath)
+                if (bmp != null) {
+                    val base64 = com.example.data.FirebaseSyncManager.encodeBitmapToBase64(bmp)
+                    val fbDrawing = com.example.data.FirebaseDrawing(
+                        drawingIdString = drawing.drawingIdString,
+                        title = drawing.title,
+                        description = drawing.description,
+                        authorName = drawing.authorName,
+                        imageBase64 = base64,
+                        timestamp = drawing.timestamp,
+                        isPublic = true
+                    )
+                    // Publish dynamically to public Firebase central database
+                    com.example.data.FirebaseSyncManager.publishPublicShare(fbDrawing)
+                }
+
+                // Generate web-sharing deep link
+                val shareLink = "https://rasmatak.web.app/view?id=${drawing.drawingIdString}"
+                
+                // Copy link to clipboard
+                val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
+                val clip = android.content.ClipData.newPlainText("رسمتك", shareLink)
+                clipboard.setPrimaryClip(clip)
+
+                // Share text message with native Sharesheet
+                val shareIntent = android.content.Intent().apply {
+                    action = android.content.Intent.ACTION_SEND
+                    putExtra(android.content.Intent.EXTRA_TEXT, "شاهد لوحتي الفنية '${drawing.title}' على تطبيق رسمتك سحابياً! 🎨☁️\nاضغط على الرابط التالي لمشاهدتها:\n$shareLink\n\nأو قم بالبحث عنها برمز اللوحة المباشر: ${drawing.drawingIdString}")
+                    type = "text/plain"
+                    addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                val chooser = android.content.Intent.createChooser(shareIntent, "مشاركة اللوحة الفنية عبر")
+                chooser.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK)
+                context.startActivity(chooser)
+                
+                onPublishDone(shareLink)
+            }
+        }
+    }
+
+    /**
+     * Downloads and saves any drawing to the public system gallery
+     */
+    fun downloadDrawingToDevice(drawing: DrawingEntity, onDone: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val file = File(drawing.imagePath)
+            if (file.exists()) {
+                val bmp = android.graphics.BitmapFactory.decodeFile(drawing.imagePath)
+                if (bmp != null) {
+                    val savedUri = CanvasSaver.saveBitmapToGallery(context, bmp, drawing.title)
+                    onDone(savedUri != null)
+                } else {
+                    onDone(false)
+                }
+            } else {
+                onDone(false)
+            }
+        }
+    }
+
+    /**
+     * Imports a cloud drawing from a pasted share link or code ID, decodes Base64, saves file, adds to DB, and opens Detail View.
+     */
+    fun importDrawingByCode(code: String, onResult: (String?, Boolean) -> Unit) {
+        val cleanCode = code.trim()
+            .replace("https://rasmatak.web.app/view?id=", "")
+            .replace("rasmatak://view?id=", "")
+        
+        if (cleanCode.isBlank()) {
+            onResult("رجاءً أدخل رمز مشاركة أو رابط صحيح", false)
+            return
+        }
+
+        viewModelScope.launch {
+            com.example.data.FirebaseSyncManager.fetchSharedDrawingByCode(cleanCode).fold(
+                onSuccess = { fbDrawing ->
+                    // First check if already exists in local DB
+                    val allDrawings = drawingsList.value
+                    val existing = allDrawings.firstOrNull { it.drawingIdString == fbDrawing.drawingIdString }
+                    if (existing != null) {
+                        navigateTo(ScreenState.DrawingDetail(existing.id))
+                        onResult("اللوحة موجودة بالفعل في مرسمك!", true)
+                        return@launch
+                    }
+
+                    // Decode bitmap from base64
+                    val decodedBmp = com.example.data.FirebaseSyncManager.decodeBase64ToBitmap(fbDrawing.imageBase64)
+                    if (decodedBmp != null) {
+                        // Save bitmap local file
+                        val dir = File(context.filesDir, "drawings")
+                        if (!dir.exists()) dir.mkdirs()
+                        val fileName = "rasmatak_imported_${System.currentTimeMillis()}.png"
+                        val file = File(dir, fileName)
+                        try {
+                            FileOutputStream(file).use { out ->
+                                decodedBmp.compress(Bitmap.CompressFormat.PNG, 100, out)
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                        }
+
+                        // Insert to SQLite local database
+                        val entity = DrawingEntity(
+                            title = fbDrawing.title,
+                            description = fbDrawing.description,
+                            drawingIdString = fbDrawing.drawingIdString,
+                            imagePath = file.absolutePath,
+                            isPublic = true,
+                            authorName = fbDrawing.authorName,
+                            likesCount = fbDrawing.likesCount,
+                            likedByUsersJson = ",",
+                            isLocalOriginal = false
+                        )
+                        val newId = repository.insertDrawing(entity).toInt()
+                        navigateTo(ScreenState.DrawingDetail(newId))
+                        onResult("تم استيراد اللوحة بنجاح ورؤيتها! 🎉", true)
+                    } else {
+                        onResult("فشل فك تشفير صورة اللوحة الفنية", false)
+                    }
+                },
+                onFailure = { err ->
+                    onResult(err.message ?: "فشل في العثور على رمز اللوحة السحابي", false)
+                }
+            )
+        }
+    }
+
+    /**
+     * Direct import of a FirebaseDrawing (e.g. from the private cloud gallery lists).
+     */
+    fun importFirebaseDrawingDirectly(fbDrawing: com.example.data.FirebaseDrawing, onResult: (String?, Boolean) -> Unit) {
+        viewModelScope.launch {
+            // First check if already exists in local DB
+            val allDrawings = drawingsList.value
+            val existing = allDrawings.firstOrNull { it.drawingIdString == fbDrawing.drawingIdString }
+            if (existing != null) {
+                navigateTo(ScreenState.DrawingDetail(existing.id))
+                onResult("اللوحة موجودة بالفعل في مرسمك!", true)
+                return@launch
+            }
+
+            // Decode bitmap from base64
+            val decodedBmp = com.example.data.FirebaseSyncManager.decodeBase64ToBitmap(fbDrawing.imageBase64)
+            if (decodedBmp != null) {
+                // Save bitmap local file
+                val dir = File(context.filesDir, "drawings")
+                if (!dir.exists()) dir.mkdirs()
+                val fileName = "rasmatak_imported_${System.currentTimeMillis()}.png"
+                val file = File(dir, fileName)
                 try {
-                    val uri = androidx.core.content.FileProvider.getUriForFile(context, authority, file)
-                    CanvasSaver.shareDrawing(context, uri, drawing.title, if (drawing.isPublic) drawing.drawingIdString else null)
+                    val out = java.io.FileOutputStream(file)
+                    decodedBmp.compress(Bitmap.CompressFormat.PNG, 100, out)
+                    out.close()
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
+
+                // Insert to SQLite local database
+                val entity = DrawingEntity(
+                    title = fbDrawing.title,
+                    description = fbDrawing.description,
+                    drawingIdString = fbDrawing.drawingIdString,
+                    imagePath = file.absolutePath,
+                    isPublic = true,
+                    authorName = fbDrawing.authorName,
+                    likesCount = fbDrawing.likesCount,
+                    likedByUsersJson = ",",
+                    isLocalOriginal = false
+                )
+                val newId = repository.insertDrawing(entity).toInt()
+                navigateTo(ScreenState.DrawingDetail(newId))
+                onResult("تم استيراد اللوحة بنجاح ورؤيتها! 🎉", true)
+            } else {
+                onResult("فشل فك تشفير صورة اللوحة الفنية", false)
             }
         }
     }

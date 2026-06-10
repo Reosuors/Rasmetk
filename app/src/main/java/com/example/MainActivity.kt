@@ -16,6 +16,15 @@ class MainActivity : ComponentActivity() {
     setContent {
       MyApplicationTheme {
         val viewModel: DrawingViewModel = viewModel()
+        
+        // Handle incoming Firebase deep links
+        intent?.data?.let { uri ->
+            val drawingCode = uri.getQueryParameter("id")
+            if (!drawingCode.isNullOrBlank()) {
+                viewModel.importDrawingByCode(drawingCode) { _, _ -> }
+            }
+        }
+
         MainViewsContainer(viewModel = viewModel)
       }
     }
