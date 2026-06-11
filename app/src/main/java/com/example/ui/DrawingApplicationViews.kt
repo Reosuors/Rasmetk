@@ -525,7 +525,7 @@ fun HomeScreen(viewModel: DrawingViewModel, currentUsername: String) {
                         Text(
                             text = if (currentLang == "ar") 
                                 "سجّل حسابك مجاناً الآن لتستمتع بحفظ لوحاتك في معرض سحابي خاص بالكامل واستردادها في أي وقت!" 
-                                else "Sign up free to auto-save and sync drawings inside your private Firebase gallery!",
+                                else "Sign up free to auto-save and sync drawings inside your private Supabase database!",
                             fontSize = 11.sp,
                             color = Color(0xFF94A3B8),
                             lineHeight = 15.sp
@@ -1288,7 +1288,7 @@ fun HomeScreen(viewModel: DrawingViewModel, currentUsername: String) {
                         ) {
                             items(privateCloudDrawings) { cloudDrawing ->
                                 val bmp = remember(cloudDrawing.imageBase64) {
-                                    com.example.data.FirebaseSyncManager.decodeBase64ToBitmap(cloudDrawing.imageBase64)
+                                    com.example.data.SupabaseSyncManager.decodeBase64ToBitmap(cloudDrawing.imageBase64)
                                 }
                                 Card(
                                     modifier = Modifier

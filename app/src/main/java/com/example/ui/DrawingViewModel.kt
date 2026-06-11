@@ -130,15 +130,15 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
     private val _username = MutableStateFlow(sharedPreferences.getString("username", "رسام مبدع") ?: "رسام مبدع")
     val username: StateFlow<String> = _username.asStateFlow()
 
-    // Firebase Authentication & Account variables
+    // Supabase Authentication & Account variables
     private val _firebaseEmail = MutableStateFlow(sharedPreferences.getString("firebase_email", "") ?: "")
     val firebaseEmail: StateFlow<String> = _firebaseEmail.asStateFlow()
 
     private val _isFirebaseLoggedIn = MutableStateFlow(sharedPreferences.getBoolean("firebase_logged_in", false))
     val isFirebaseLoggedIn: StateFlow<Boolean> = _isFirebaseLoggedIn.asStateFlow()
 
-    private val _firebasePrivateDrawings = MutableStateFlow<List<com.example.data.FirebaseDrawing>>(emptyList())
-    val firebasePrivateDrawings: StateFlow<List<com.example.data.FirebaseDrawing>> = _firebasePrivateDrawings.asStateFlow()
+    private val _firebasePrivateDrawings = MutableStateFlow<List<com.example.data.SupabaseDrawing>>(emptyList())
+    val firebasePrivateDrawings: StateFlow<List<com.example.data.SupabaseDrawing>> = _firebasePrivateDrawings.asStateFlow()
 
     private val _firebasePrivateLoading = MutableStateFlow(false)
     val firebasePrivateLoading: StateFlow<Boolean> = _firebasePrivateLoading.asStateFlow()
@@ -160,7 +160,7 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             _firebaseAuthLoading.value = true
             _firebaseAuthError.value = null
-            com.example.data.FirebaseSyncManager.loginWithFirebase(email, pass).fold(
+            com.example.data.SupabaseSyncManager.loginWithSupabase(email, pass).fold(
                 onSuccess = { (usr, mail) ->
                     _username.value = usr
                     sharedPreferences.edit()
@@ -186,7 +186,7 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             _firebaseAuthLoading.value = true
             _firebaseAuthError.value = null
-            com.example.data.FirebaseSyncManager.signUpWithFirebase(email, usr, pass).fold(
+            com.example.data.SupabaseSyncManager.signUpWithSupabase(email, usr, pass).fold(
                 onSuccess = { finalizedUser ->
                     _username.value = finalizedUser
                     sharedPreferences.edit()
@@ -224,7 +224,7 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
         viewModelScope.launch {
             _firebasePrivateLoading.value = true
             _firebasePrivateLoadError.value = null
-            com.example.data.FirebaseSyncManager.fetchPrivateDrawings(currEmail)
+            com.example.data.SupabaseSyncManager.fetchPrivateDrawings(currEmail)
                 .onSuccess { list ->
                     _firebasePrivateDrawings.value = list.sortedByDescending { it.timestamp }
                     _firebasePrivateLoading.value = false
@@ -896,13 +896,13 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
 
             val newDbId = repository.insertDrawing(entity).toInt()
 
-            // If Firebase is logged in, upload to their private gallery
+            // If Supabase is logged in, upload to their private gallery
             if (_isFirebaseLoggedIn.value && _firebaseEmail.value.isNotBlank()) {
                 try {
-                    val base64 = com.example.data.FirebaseSyncManager.encodeBitmapToBase64(bitmap)
-                    com.example.data.FirebaseSyncManager.saveToPrivateCloudGallery(
+                    val base64 = com.example.data.SupabaseSyncManager.encodeBitmapToBase64(bitmap)
+                    com.example.data.SupabaseSyncManager.saveToPrivateCloudGallery(
                         email = _firebaseEmail.value,
-                        drawing = com.example.data.FirebaseDrawing(
+                        drawing = com.example.data.SupabaseDrawing(
                             drawingIdString = uniqueIdString,
                             title = validatedTitle,
                             description = validatedDesc,
@@ -928,7 +928,7 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
     }
 
     /**
-     * Share drawing through system share sheets and dynamically publish to Firebase for links.
+     * Share drawing through system share sheets and dynamically publish to Supabase for links.
      */
     fun shareDrawing(drawing: DrawingEntity, onPublishDone: (String) -> Unit = {}) {
         viewModelScope.launch {
@@ -936,8 +936,8 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
             if (file.exists()) {
                 val bmp = android.graphics.BitmapFactory.decodeFile(drawing.imagePath)
                 if (bmp != null) {
-                    val base64 = com.example.data.FirebaseSyncManager.encodeBitmapToBase64(bmp)
-                    val fbDrawing = com.example.data.FirebaseDrawing(
+                    val base64 = com.example.data.SupabaseSyncManager.encodeBitmapToBase64(bmp)
+                    val fbDrawing = com.example.data.SupabaseDrawing(
                         drawingIdString = drawing.drawingIdString,
                         title = drawing.title,
                         description = drawing.description,
@@ -946,12 +946,12 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
                         timestamp = drawing.timestamp,
                         isPublic = true
                     )
-                    // Publish dynamically to public Firebase central database
-                    com.example.data.FirebaseSyncManager.publishPublicShare(fbDrawing)
+                    // Publish dynamically to public Supabase table
+                    com.example.data.SupabaseSyncManager.publishPublicShare(fbDrawing)
                 }
 
                 // Generate web-sharing deep link
-                val shareLink = "https://rasmatak.web.app/view?id=${drawing.drawingIdString}"
+                val shareLink = "https://jjanuivrwsqvfqzvrwmu.supabase.co/view?id=${drawing.drawingIdString}"
                 
                 // Copy link to clipboard
                 val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as android.content.ClipboardManager
@@ -999,6 +999,7 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
      */
     fun importDrawingByCode(code: String, onResult: (String?, Boolean) -> Unit) {
         val cleanCode = code.trim()
+            .replace("https://jjanuivrwsqvfqzvrwmu.supabase.co/view?id=", "")
             .replace("https://rasmatak.web.app/view?id=", "")
             .replace("rasmatak://view?id=", "")
         
@@ -1008,7 +1009,7 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
         }
 
         viewModelScope.launch {
-            com.example.data.FirebaseSyncManager.fetchSharedDrawingByCode(cleanCode).fold(
+            com.example.data.SupabaseSyncManager.fetchSharedDrawingByCode(cleanCode).fold(
                 onSuccess = { fbDrawing ->
                     // First check if already exists in local DB
                     val allDrawings = drawingsList.value
@@ -1020,7 +1021,7 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
                     }
 
                     // Decode bitmap from base64
-                    val decodedBmp = com.example.data.FirebaseSyncManager.decodeBase64ToBitmap(fbDrawing.imageBase64)
+                    val decodedBmp = com.example.data.SupabaseSyncManager.decodeBase64ToBitmap(fbDrawing.imageBase64)
                     if (decodedBmp != null) {
                         // Save bitmap local file
                         val dir = File(context.filesDir, "drawings")
@@ -1062,9 +1063,9 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
     }
 
     /**
-     * Direct import of a FirebaseDrawing (e.g. from the private cloud gallery lists).
+     * Direct import of a SupabaseDrawing (e.g. from the private cloud gallery lists).
      */
-    fun importFirebaseDrawingDirectly(fbDrawing: com.example.data.FirebaseDrawing, onResult: (String?, Boolean) -> Unit) {
+    fun importFirebaseDrawingDirectly(fbDrawing: com.example.data.SupabaseDrawing, onResult: (String?, Boolean) -> Unit) {
         viewModelScope.launch {
             // First check if already exists in local DB
             val allDrawings = drawingsList.value
@@ -1076,7 +1077,7 @@ class DrawingViewModel(application: Application) : AndroidViewModel(application)
             }
 
             // Decode bitmap from base64
-            val decodedBmp = com.example.data.FirebaseSyncManager.decodeBase64ToBitmap(fbDrawing.imageBase64)
+            val decodedBmp = com.example.data.SupabaseSyncManager.decodeBase64ToBitmap(fbDrawing.imageBase64)
             if (decodedBmp != null) {
                 // Save bitmap local file
                 val dir = File(context.filesDir, "drawings")
