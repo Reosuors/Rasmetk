@@ -1,32 +1,13 @@
 {
   "project_info": {
-    "project_number": "1055721735718",
+    "project_number": "1055271735718",
     "project_id": "online-e1389",
     "storage_bucket": "online-e1389.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1055721735718:android:7d3770d831f4d5ac5e88e7",
-        "android_client_info": {
-          "package_name": "Ahmad.ahmad"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCTfYfJQdb61oWEHqBsJgdBb0C0LyN-Ofs"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:1055721735718:android:e4028759c22daa895e88e7",
+        "mobilesdk_app_id": "1:1055271735718:android:e4028759c22daa895e88e7",
         "android_client_info": {
           "package_name": "com.aistudio.rasmatak.zpxnqw"
         }
@@ -34,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCTfYfJQdb61oWEHqBsJgdBb0C0LyN-Ofs"
+          "current_key": "AIzaSyCTfyFjqdb61oWEHqBsJgdBb0COLyN-Ofs"
         }
       ],
       "services": {
