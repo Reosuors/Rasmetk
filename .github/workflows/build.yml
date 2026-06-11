@@ -26,6 +26,9 @@ jobs:
           gradle wrapper
         fi
 
+    - name: Create Dummy Keystore
+      run: touch debug.keystore
+
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
 
