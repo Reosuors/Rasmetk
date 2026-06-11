@@ -16,15 +16,22 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      # هذه الخطوة هي "الساحرة" التي تولد ملفات الجرادل المفقودة تلقائياً
       - name: Setup Gradle Wrapper
         run: gradle wrapper
+
+      # هذه الخطوة تأخذ الملف المشفر اللي عندك وتفك تشفيره وتحطه في المكان الصح
+      - name: Decode Keystore
+        run: |
+          base64 -d debug.keystore.base64 > app/debug.keystore
 
       - name: Grant Execute Permission
         run: chmod +x gradlew
 
       - name: Build with Gradle
         run: ./gradlew assembleDebug
+        env:
+          # نمرر كلمة المرور كمتغير بيئة لتجنب الخطأ
+          STORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
