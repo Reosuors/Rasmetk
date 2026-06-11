@@ -27,10 +27,16 @@ jobs:
             gradle wrapper
           fi
 
-      - name: Generate Real Debug Keystore
+      - name: Generate Keystore in App and System folders
         run: |
+          # توليد في المجلد الرئيسي للنظام
           mkdir -p ~/.android
           keytool -genkey -v -keystore ~/.android/debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+          
+          # توليد نسخة ثانية داخل مجلد الـ app ومجلد المشروع الرئيسي عشان يرضي الـ Gradle وين ما كان
+          mkdir -p app
+          keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US"
+          cp debug.keystore app/debug.keystore
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
